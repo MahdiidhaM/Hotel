@@ -18,19 +18,23 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 app.autodiscover_tasks()
 
 
-@app.task(bind=True)
-def debug_task(self):
-  print('Request: {0!r}'.format(self.request))
-  print('hello world')
+# @app.task(bind=True)
+# def debug_task(self):
+#   print('Request: {0!r}'.format(self.request))
+#   print('hello world')
 
 
-app.conf.beat_schedule = {
-    'add-every-5-seconds': {
-        'task': 'vubon',
-        'schedule': 5.0,
-    },
-    'add-every-minute-contrab': {
-        'task': 'data_checking',
-        'schedule': crontab(minute=1),
-    },
-}
+# app.conf.beat_schedule = {
+#     # 'add-every-5-seconds': {
+#     #     'task': 'vubon',
+#     #     'schedule': 5.0,
+#     # },
+#     # 'add-every-minute-contrab': {
+#     #     'task': 'data_checking',
+#     #     'schedule': crontab(minute=1),
+#     # },
+#     'sampletask':{
+#         'task': 'tasks.sampletask',
+#         'schedule': crontab(minute="*/1"),
+#     }
+# }

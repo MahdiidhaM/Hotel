@@ -1,8 +1,12 @@
 from django.contrib import admin
-from .models import Balances, GetData, TransferAmount
+from .models import *
 
 # Register your models here.
 
-admin.site.register(Balances)
-admin.site.register(GetData)
-admin.site.register(TransferAmount)
+# admin.site.register(Balances)
+# admin.site.register(GetData)
+# admin.site.register(TransferAmount)
+admin.site.register(main)
+admin.site.register(Hotel)
+admin.site.register(Site)
+admin.site.register(Room_Detail)

@@ -150,11 +150,15 @@ CELERY_BEAT_SCHEDULE = {
     # },
     "Snap_task": {
         "task": "calculation.tasks.Snap_task",
-        "schedule": crontab(minute="*/25"),
+        "schedule": crontab(minute="*/15"),
     },
     "Ali_task": {
         "task": "calculation.tasks.Ali_task",
-        "schedule": crontab(minute="*/25"),
+        "schedule": crontab(minute="*/15"),
+    },
+    "Eghamat_task": {
+        "task": "calculation.tasks.Eghamat_task",
+        "schedule": crontab(minute="*/15"),
     },
 }
 

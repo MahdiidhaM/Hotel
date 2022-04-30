@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.urls import path
 from django.contrib import admin
-from calculation.views import Snap,Ali_task
+from calculation.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Snap',Snap),
-    path('Ali_task',Ali_task),
+    path('Snap/',Snap),
+    path('Ali_task/',Snap_task),
+    path('price/',price),
+    path('Darvish/',Darvish,name='Darvish'),
+    path('Almas/',Almas,name='Almas'),
 ]

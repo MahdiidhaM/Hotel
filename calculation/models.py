@@ -114,3 +114,4 @@ class Room_Detail(models.Model):
     site = models.ForeignKey(Hotel,on_delete=models.CASCADE,blank=True,null=True)
     def __str__(self):
         return self.Room_Name
+

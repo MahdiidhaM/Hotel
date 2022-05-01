@@ -24,4 +24,7 @@ urlpatterns = [
     path('price/',price),
     path('Darvish/',Darvish,name='Darvish'),
     path('Almas/',Almas,name='Almas'),
+    path('Homa/',Homa,name='Homa'),
+    path('Javad/',Javad,name='Javad'),
+    path('Ghasr/',Ghasr,name='Ghasr'),
 ]

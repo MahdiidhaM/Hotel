@@ -16,15 +16,21 @@ Including another URLconf
 from django.urls import path
 from django.contrib import admin
 from calculation.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('Snap/',Snap),
-    path('Ali_task/',Snap_task),
-    path('price/',price),
+    path('Ali_task/',Eghamat_task),
+    # path('price/',price),
     path('Darvish/',Darvish,name='Darvish'),
     path('Almas/',Almas,name='Almas'),
     path('Homa/',Homa,name='Homa'),
     path('Javad/',Javad,name='Javad'),
     path('Ghasr/',Ghasr,name='Ghasr'),
+    path('cal/',cal,name='cal'),
 ]
+
+urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

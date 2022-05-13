@@ -115,3 +115,5 @@ class Room_Detail(models.Model):
     def __str__(self):
         return self.Room_Name
 
+class History(models.Model):
+    birth = models.CharField(max_length=300)

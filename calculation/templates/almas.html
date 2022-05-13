@@ -1,6 +1,35 @@
+{% load jalali_tags %}
+{% load static %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <input type="submit" value="send">
+</form>
+<link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
+		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+{% if custom %}
+<h1>from {{first}} to {{second}}</h1>
+{% endif %}
+{% for room in custom %}
+    {{room.Room_Name}}
+    {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
+    <br>
+{% empty %}
+<h3>dose not exist</h3>
+{% endfor %}
+<br>
+<br>
+<h1>All Ghasr Rooms</h1>
 {% for room in sue %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -8,6 +37,9 @@
 {% for room in almas %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -15,6 +47,9 @@
 {% for room in saf %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -22,6 +57,9 @@
 {% for room in turk %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -29,6 +67,9 @@
 {% for room in iran %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -36,6 +77,9 @@
 {% for room in Berelian %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -43,6 +87,9 @@
 {% for room in Emperial %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -50,6 +97,9 @@
 {% for room in India %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -57,6 +107,9 @@
 {% for room in Africa %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -64,6 +117,9 @@
 {% for room in Tailand %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -71,6 +127,9 @@
 {% for room in Russa %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -78,6 +137,9 @@
 {% for room in Turkish %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -85,6 +147,9 @@
 {% for room in Italian %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -92,6 +157,9 @@
 {% for room in Arabic %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>
@@ -99,6 +167,9 @@
 {% for room in tamaddon %}
     {{room.Room_Name}}
     {{room.Price_Off}}
+    {{room.Day}}-
+    {{room.Second_Day}}
+    {{room.site}}
     <br>
 {% endfor %}
 <br>

@@ -1,10 +1,9 @@
 {% load jalali_tags %}
 {% load static %}
-
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="send">
-</form>
-<link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
-		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
+{{ property.address }}
+<br>
+<br>
+{% for i in image_list %}
+{{ i.image.url }}
+<br>
+{% endfor %}

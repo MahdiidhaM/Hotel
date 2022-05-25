@@ -77,9 +77,6 @@ import datetime
 #     def __str__(self):
 #         return self.identify
 
-class main(models.Model):
-    text = models.CharField(max_length=200)
-
 
 class Site(models.Model):
     site_name = models.CharField(max_length=300)
@@ -95,10 +92,6 @@ class Hotel(models.Model):
     def __str__(self):
         return self.hotel_name
         
-class Room(models.Model):
-    Price = models.TextField()
-    Day = models.DateField(auto_now_add=True)
-    site = models.ForeignKey(Hotel,on_delete=models.CASCADE,blank=True,null=True)
     
 class Room_Detail(models.Model):
     Room_Name = models.CharField(max_length=200)
@@ -114,6 +107,24 @@ class Room_Detail(models.Model):
     site = models.ForeignKey(Hotel,on_delete=models.CASCADE,blank=True,null=True)
     def __str__(self):
         return self.Room_Name
+
+
+class Information(models.Model):
+    image = models.ImageField(upload_to='image',blank=True,null=True)
+    hotel = models.CharField(max_length=450)
+    star = models.IntegerField()
+    text = models.TextField()
+    address = models.CharField(max_length=600)
+    def __str__(self):
+        return self.hotel
+
+
+class Hotel_Image(models.Model):
+    image = models.ImageField(upload_to='image')
+    main = models.ForeignKey(Information,related_name='imagesm',on_delete=models.CASCADE)
+    def __str__(self):
+        return str(self.main)
+
 
 class History(models.Model):
     birth = models.CharField(max_length=300)

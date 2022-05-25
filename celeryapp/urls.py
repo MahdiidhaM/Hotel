@@ -30,6 +30,7 @@ urlpatterns = [
     path('Javad/',Javad,name='Javad'),
     path('Ghasr/',Ghasr,name='Ghasr'),
     path('cal/',cal,name='cal'),
+    # path('main/',main,name='main'),
 ]
 
 urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

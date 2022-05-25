@@ -21,146 +21,98 @@ today_date = datetime.datetime.now()
 tommorow_date = today_date + datetime.timedelta(days= +1)
 def Eghamat_task(request):
     driver = webdriver.Chrome('calculation/chromedriver')
-    driver.get(f'https://www.alibaba.ir/hotel/ir-mashhad?destination=City_5be3f68be9a116befc66701b_%D9%85%D8%B4%D9%87%D8%AF+-+%D8%A7%DB%8C%D8%B1%D8%A7%D9%86&departing={today_date.date()}&returning={tommorow_date.date()}&rooms=30')
-    site,created = Site.objects.update_or_create(site_name='AliBaba')
-    reserve = []
-    add = []
-    ti.sleep(10)
-
-    for link in range(1,6):
-        try:
-            links = driver.find_element(By.XPATH,f'/html/body/div/div[1]/main/div[2]/div/section/div[2]/div[1]/div[{link}]/div[1]/div[2]/div/div[1]/div[2]/a')
-            links.click()
-        except:
-            linkss = driver.find_element(By.XPATH,f'/html/body/div/div[1]/main/div[2]/div/section/div[3]/div[1]/div[{link}]/div[1]/div[2]/div/div[1]/div[2]/a')
-            linkss.click()
-    page = len(driver.window_handles)
-    # print(page)
-    
-    for i in range(2,page):
-        # driver.switch_to.window(driver.window_handles[7])
-        
-        driver.switch_to.window(driver.window_handles[i])
-        path_ali = driver.current_url
-        
-        # count = 1
-        # for number in driver.find_elements(By.CLASS_NAME,'leading-loose'):
-        #     count +=1
-        # //*[@id="app"]/div[1]/main/div/div[2]/div/h1
-        # //*[@id="app"]/div[1]/main/div/div[2]/div/h1
-        title = driver.find_element(By.XPATH,'//*[@id="app"]/div[1]/main/div/div[2]/div/h1')
-        hotel,created = Hotel.objects.update_or_create(hotel=site,hotel_name=title.text)
-        end = []
-        # ti.sleep(10)
-        day_range = 7
-        for day in range(day_range):
-            for j in range(2):
-                if j == 1 :
-                    week=4
-                else:
-                    week=0
-                l_next = datetime.datetime.now() + datetime.timedelta(days=day)
-                l_next_second = datetime.datetime.now() + datetime.timedelta(days=day+1)
-                bb2 = jalali.Gregorian(l_next.date()).persian_string()
-                bb3 = jalali.Gregorian(l_next_second.date()).persian_string()
-                numb2 = bb2.split('-')[-1]
-                numb3 = int(bb3.split('-')[-1])
-                driver.find_element(By.XPATH,'/html/body/div/div[1]/main/div/div[3]/aside/div/div/div/div[1]/div[1]/div[2]/span').click()
-                first = driver.find_elements(By.XPATH,f"//span[text()='{numb2}']")
-                first[j].click()
-                decond = driver.find_elements(By.XPATH,f"//span[text()='{numb3}']")
-                decond[j].click()
-                element = driver.find_element(By.XPATH,'/html/body/div/div[1]/main/div/div[3]/aside/div/div/div/div[1]/div[1]/div[3]/div/div[3]/button')
-                driver.execute_script("arguments[0].click();", element)
-                butt = driver.find_element(By.XPATH,'//*[@id="ho_sidebar"]/div/div/div/button')
-                driver.execute_script("arguments[0].click();", butt)
-                his = driver.find_element(By.XPATH,'/html/body/div/div[1]/main/div/div[3]/aside/div/div/div/div[1]/div[1]/div[2]/span').text
-                print(his.split('–')[0][:-1])
-                print(his.split('–')[1][1:])
-                print('###########')
-                convert_date = jalali.Persian(his.split('–')[0][:-1]).gregorian_string()
-                convert_date_next = jalali.Persian(his.split('–')[1][1:]).gregorian_string()
-                print('--------0')
-                print(convert_date)
-                print('--------1')
-                print(convert_date_next)
-                ti.sleep(10)
-                try:
-                    # /html/body/div/div[1]/main/div/div[3]/div/section[3]/button
-                    # /html/body/div/div[1]/main/div/div[3]/div/section[3]/button
-                    # //*[@id="ho_main"]/div/section[3]/button
-                    driver.find_element(By.XPATH,'//*[@id="ho_main"]/div/section[3]/button').click()
-                    driver.find_element(By.XPATH,'//*[@id="ho_main"]/div/section[3]/button').click()
-                    driver.find_element(By.XPATH,'//*[@id="ho_main"]/div/section[3]/button').click()
-                except:
-                    pass
-                # ti.sleep(10)
-                for mar in driver.find_elements(By.CLASS_NAME,'a-card__body')[:-3]:
-                    # ti.sleep(10)
-                    try:
-                        p = ''.join(mar.text)
-                        items_ali = p.split('\n')
-                        # print('items_ali[1]')
-                        # print(items_ali[1])
-                        # print('items_ali[2]')
-                        # print(items_ali[2])
-                        # print('items_ali[3]')
-                        # print(items_ali[3])
-                        # print('items_ali[4]')
-                        # print(items_ali[4])
-                        # print('items_ali[5]')
-                        # print(items_ali[5])
-                        # print('items_ali[6]')
-                        # print(items_ali[6])
-                        # print('items_ali[7]')
-                        # print(items_ali[7])
-                        # print('items_ali[8]')
-                        # print(items_ali[8])
-                        convert_price = re.sub(',','',items_ali[4][12:-5])
-                        print(convert_price)
-                        print('--------------')
-                        add.append(items_ali)
-                        # try:
-                        room_team,created = Room_Detail.objects.update_or_create(site=hotel,Day=convert_date,Second_Day=convert_date_next,Path=path_ali,Room_Name=items_ali[0],Night=items_ali[-1],Future=items_ali[1],Person_Number=items_ali[3],Price_Origin=items_ali[6],Off=items_ali[5],Price_Off=int(convert_price)/10)
-                        # except:
-                        #     room_team,created = Room_Detail.objects.update_or_create(site=hotel,Day=convert_date,Second_Day=convert_date_next,Path=path_ali,Room_Name=items_ali[0],Night=items_ali[-1],Future=items_ali[1],Person_Number=items_ali[3],Price_Origin=items_ali[6],Off=items_ali[5],Price_Off=int(convert_price)/10)
-                    except:
-                        pass
-                ti.sleep(5)
+    driver.get('https://www.snapptrip.com/%D8%B1%D8%B2%D8%B1%D9%88-%D9%87%D8%AA%D9%84/%D9%85%D8%B4%D9%87%D8%AF?gclid=CjwKCAiAgbiQBhAHEiwAuQ6Bkkj7yFFiBg8j09tkzZbeQM2WHDbO9liJMIeOz80BmDdXVUPlRsLRThoCw_MQAvD_BwE&price_from=0&price_to=0&page=1')
+    Snap,created = Site.objects.update_or_create(site_name='SnapTrip')
+    details = driver.find_elements(By.ID,'resultpage-hotelcard-hotelname')
+    items_trip = []
+    num = 0
+    # for snap trip site
+    for item in details[:8]:
+        num+=1
+        driver.switch_to.window(driver.window_handles[0])
+        item.click()
+        driver.switch_to.window(driver.window_handles[num])
+        path = driver.current_url
+        o = 0
+        for j in driver.find_elements(By.ID,'hotelprofile-roomcards-cta-instantbookcomplete'):
+            o+=1
+        h = driver.find_element(By.TAG_NAME,'h1')
+        star = driver.find_element(By.XPATH,'//*[@id="sec_hotel-info"]/div[1]/div[2]/div[1]/div[1]/div/meta').get_attribute('content')
+        vote = driver.find_element(By.XPATH,'//*[@id="hotelSomeComment"]/div[1]/div[2]/div/div/div[1]')
+        hotel_snap,created = Hotel.objects.update_or_create(hotel=Snap,hotel_name=f'{h.text} SnapTrip',hotel_vote=vote.text,hotel_star=star)
+        for datea in range(9):
+            l = datetime.datetime.now() + datetime.timedelta(days=datea)
+            l_next = datetime.datetime.now() + datetime.timedelta(days=datea+1)
+            bb1 = jalali.Gregorian(l.date()).persian_string()
+            bb2 = jalali.Gregorian(l_next.date()).persian_string()
+            numb1 = bb1.split('-')[-1]
+            numb2 = bb2.split('-')[-1]
+            driver.find_element(By.CLASS_NAME,'date-peacker').click()
+            calender = driver.find_elements(By.XPATH,f"//td[text()='{numb1}']")
+            if calender[0].get_attribute('class') == 'off disabled':
+                em = 1
+            else:
+                em = 0
+            calender[em].click()
+            driver.find_element(By.XPATH,'//*[@id="topNavHotel"]/div[2]/form/div/div/div[5]/button').click()
+            ti.sleep(3)
+            day_1 = driver.find_elements(By.CLASS_NAME,'form-control')[1].get_attribute('value')
+            day_2 = driver.find_elements(By.CLASS_NAME,'form-control')[2].get_attribute('value')
+            convert_day_1 = jalali.Persian(day_1).gregorian_string()
+            convert_day_2 = jalali.Persian(day_2).gregorian_string()
+            convert_price = driver.find_elements(By.CLASS_NAME,'span-prices')
+            if driver.find_elements(By.CLASS_NAME,'price')[1].text == '':
+                multi = 2                    
+            else:
+                multi = 1
+            for index,t in enumerate(driver.find_elements(By.CLASS_NAME,'room-item')):
+                snap_room_name = driver.find_elements(By.CLASS_NAME,'text-ellipsis')[index].text
+                snap_price = driver.find_elements(By.CLASS_NAME,'price')[index*multi].text
+                convert_price = re.sub(',','',snap_price)
+                room_team_snap,created = Room_Detail.objects.update_or_create(site=hotel_snap,Day=convert_day_1,Second_Day=convert_day_2,Path=path,Room_Name=snap_room_name,Off='',Price_Off=int(convert_price))
     return HttpResponse('ok')
-
  
 def Darvish(request):
     form = TimeForm()
-    three_rooms = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='سه تخته') | Q(Room_Name__contains='سه نفره')))).order_by('Price_Off')
-    four_rooms  = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='چهارتخته') | Q(Room_Name__contains='چهار نفره')))).order_by('Price_Off')
-    standard    = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='یک تخته') | Q(Room_Name__contains='یک نفره')))).order_by('Price_Off')
-    Darvish     = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='دبل') | Q(Room_Name__contains='دابل')))).order_by('Price_Off')
-    session     = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='سوئیت') & Q(Room_Name__contains='فصل'))).order_by('Price_Off')
-    toeen       = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='تویین') | Q(Room_Name__contains='توئین')))).order_by('Price_Off')
-    three       = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='استاندارد') & Q(Room_Name__contains='سه تخته'))).order_by('Price_Off')
-    four        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='استاندارد') & Q(Room_Name__contains='چهار تخته'))).order_by('Price_Off')
-    espa        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Room_Name__contains='اسپا')).order_by('Price_Off')
-    room        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='امپریال') & Q(Q(Room_Name__contains='سه تخته') | Q(Room_Name__contains='اتاق')))).order_by('Price_Off')
-    stan        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='تویین') | Q(Room_Name__contains='توئین')))).order_by('Price_Off')
-    one         = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='یک تخته') | Q(Room_Name__contains='یک نفره')))).order_by('Price_Off')
-    imp         = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='امپریال') & Q(Q(Room_Name__contains='سوئیت') | Q(Room_Name__contains='سوییت')))).order_by('Price_Off')
-    Es          = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='دبل') | Q(Room_Name__contains='دابل')))).order_by('Price_Off')
-
+    today = datetime.datetime.now().date()
+    Darvish_hotel = Information.objects.get(hotel__contains='درویش')
+    all_hotel = Darvish_hotel.imagesm.all()
+    if request.method == 'POST':
+        date_one = jalali.Persian(request.POST.get('first')).gregorian_string()
+        date_two = jalali.Persian(request.POST.get('second')).gregorian_string()
+    else:
+        date_one = today
+    three_rooms = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='سه تخته') | Q(Room_Name__contains='سه نفره')))).order_by('Price_Off')
+    four_rooms  = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='چهار تخته') | Q(Room_Name__contains='چهار نفره')))).order_by('Price_Off')
+    standard    = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='یک تخته') | Q(Room_Name__contains='یک نفره')| Q(Room_Name__contains='سینگل')))).order_by('Price_Off')
+    Darvish     = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='دبل') | Q(Room_Name__contains='دابل')))).order_by('Price_Off')
+    session     = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Q(Room_Name__contains='سوئیت')| Q(Room_Name__contains='سوییت')) & Q(Room_Name__contains='استاندارد'))).order_by('Price_Off')
+    toeen       = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='تویین') | Q(Room_Name__contains='توئین')))).order_by('Price_Off')
+    three       = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='استاندارد') & Q(Room_Name__contains='سه تخته'))).order_by('Price_Off')
+    four        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='استاندارد') & Q(Room_Name__contains='چهار تخته'))).order_by('Price_Off')
+    espa        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Room_Name__contains='اسپا')).order_by('Price_Off')
+    room        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='امپریال') & Q(Q(Room_Name__contains='سه تخته') | Q(Room_Name__contains='اتاق')))).order_by('Price_Off')
+    stan        = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='تویین') | Q(Room_Name__contains='توئین')))).order_by('Price_Off')
+    one         = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='اکونومی') & Q(Q(Room_Name__contains='یک تخته') | Q(Room_Name__contains='یک نفره')| Q(Room_Name__contains='سینگل')))).order_by('Price_Off')
+    imp         = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='امپریال') & Q(Q(Room_Name__contains='سوئیت') | Q(Room_Name__contains='سوییت')))).order_by('Price_Off')
+    Es          = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one) & Q(Q(Room_Name__contains='استاندارد') & Q(Q(Room_Name__contains='دبل') | Q(Room_Name__contains='دابل')))).order_by('Price_Off')
+    final = [three_rooms,four_rooms,standard,Darvish,session,toeen,three,four,espa,room,stan,one,imp,Es]
+    ralated_hotels = Information.objects.all()
     context = {
-        'one':one,'three_rooms':three_rooms,'four_rooms':four_rooms,'toeen':toeen,'Darvish':Darvish,'stan':stan,'standard':standard,'Es':Es,'three':three,'four':four,'session':session,
-        'espa':espa,'room':room,'imp':imp,'form':form
+        'final':final,'form':form,'all_hotel':all_hotel,'Darvish_hotel':Darvish_hotel,'ralated_hotels':ralated_hotels
     }
     if request.method == 'POST':
         date_one = jalali.Persian(request.POST.get('first')).gregorian_string()
         date_two = jalali.Persian(request.POST.get('second')).gregorian_string()
         custom = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one)& Q(Second_Day=date_two))
-
+        
         # form = TimeForm()
         context.update({'custom':custom})
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('second')})
-
+    else:
+        custom = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=today))
+        context.update({'custom':custom})
     return render(request,'darvish.html',context)
 
 def Almas(request):
@@ -180,11 +132,12 @@ def Almas(request):
     iran        = Room_Detail.objects.filter(Q(site__hotel_name__contains='الماس') & Q(Room_Name__contains='ایران باستان') & Q(Q(Room_Name__contains='سوئیت') | Q(Room_Name__contains='سوییت'))).order_by('Price_Off')
     sue         = Room_Detail.objects.filter(Q(site__hotel_name__contains='الماس') & Q(Room_Name__contains='یک خوابه') & Q(Q(Room_Name__contains='سوئیت') | Q(Room_Name__contains='سوییت'))).order_by('Price_Off')
     saf         = Room_Detail.objects.filter(Q(site__hotel_name__contains='الماس') & Q(Room_Name__contains='صفویه') & Q(Q(Room_Name__contains='سوئیت') | Q(Room_Name__contains='سوییت'))).order_by('Price_Off')
+    final = [Berelian,tamaddon,Emperial,Tailand,Turkish,Italian,Africa,Arabic,almas,India,Russa,turk,iran,sue,saf]
 
 
     context = {
         'almas':almas,'sue':sue,'saf':saf,'turk':turk,'iran':iran,'Berelian':Berelian,'Emperial':Emperial,'India':India,'Africa':Africa,'Tailand':Tailand,'Russa':Russa,'Turkish':Turkish,'Italian':Italian,
-        'Arabic':Arabic,'tamaddon':tamaddon,'form':form
+        'Arabic':Arabic,'tamaddon':tamaddon,'form':form,'final':final
     }
     if request.method == 'POST':
         date_one = jalali.Persian(request.POST.get('first')).gregorian_string()
@@ -249,5 +202,25 @@ def my_view(request):
 	jalali_join = datetime2jalali(request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
 
 def cal(request):
-    # rooms = Room_Detail.objects.
+    Hotels = Information.objects.all()
+    l = 2
+    n = []
+    for x in range(2):
+        print(l)
+        c = []
+        for index,i in enumerate(Hotels):
+            print(index)
+            if l-2 <= index < l:
+                c.append(i)
+        n.append(c)
+        l*=2
+
+    return render(request,'index.html',{'Hotels':n})
+
+
+# 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
+# https://darvishiroyal.com/media/motionslider/photo_1485637257.jpg
+
+
+def main(request):
     return render(request,'main.html')

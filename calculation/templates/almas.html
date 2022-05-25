@@ -1,179 +1,256 @@
-{% load jalali_tags %}
 {% load static %}
+{% load jalali_tags %}
+{% load widget_tweaks %}
+<div class="main-banner" style="background-image:url({% static 'img/Darvish/photo_1485637151.jpg' %} );">
+    <div class="container">
+      <div class="row">
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="send">
-</form>
+        <div class="col-lg-10 offset-lg-1">
+            <ul class="categories">
+              <li><a href="category.html"><span class="icon"><img src="assets/images/search-icon-01.png" alt="Home"></span> Apartments</a></li>
+              <li><a href="listing.html"><span class="icon"><img src="assets/images/search-icon-02.png" alt="Food"></span> Food &amp; Life</a></li>
+            </ul>
+          </div>
+        <div class="col-lg-12">
+          <div class="top-text header-text">
+            <h2>Find Nearby Places &amp; Things</h2>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <form id="search-form" name="gs" method="post" role="search" action="#">
+            <div class="row">
+              <div class="col-lg-3 align-self-center">
+                  <fieldset>
+                      <input type="address" name="address" class="" placeholder="Enter a location" autocomplete="on" required>
+                  </fieldset>
+              </div>
+
+              <div class="col-lg-3 align-self-center">
+                <fieldset>
+                    <!-- <select style="border-left: 1px solid #8d99af;
+                    border-right: 1px solid #8d99af;
+                    border-radius: 4px;" name="area" class="form-select searchText" aria-label="Area" id="chooseCategory" > -->
+                    {{form.first|add_class:"form-select"}}
+                        
+                    </select>
+                </fieldset>
+            </div>
+              <div class="col-lg-3 align-self-center">
+                  <fieldset>
+                      <select name="price" class="form-select" aria-label="Default select example" id="chooseCategory" onchange="this.form.click()">
+                          <option selected>Price Range</option>
+                          <option value="$100 - $250">$100 - $250</option>
+                          <option value="$250 - $500">$250 - $500</option>
+                          <option value="$500 - $1000">$500 - $1,000</option>
+                          <option value="$1000+">$1,000 or more</option>
+                      </select>
+                  </fieldset>
+              </div>
+              <div class="col-lg-3">                        
+                  <fieldset>
+                      <button class="main-button"><i class="fa fa-search"></i> Search Now</button>
+                  </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= Services Section ======= -->
+  <section id="services">
+    <div class="container" data-aos="fade-up">
+        {% for table in final %}
+            <div class="section-header">
+                <h2 style="font-family:'byekan';">{{table.first}}</h2>
+            </div>
+        
+
+            {% for room in table %}
+            <div class="row gy-4">
+                    <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="box">
+                    <div class="icon"><i class="bi bi-briefcase"></i></div>
+                    <h4 class="title"><a href="">Lorem Ipsum</a></h4>
+                    <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+                </div>
+                    </div>
+                </div>
+                {% endfor %}
+        {% endfor %}
+    </div>
+  </section><!-- End Services Section -->
+  <div>
+    <form method="POST">
+        <div>
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="send">
+        </div>
+    </form>
+  </div>
 <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
 		<script src="{% static 'admin/js/django_jalali.min.js' %}"></script>
-{% if custom %}
-<h1>from {{first}} to {{second}}</h1>
+{% if request.POST %}
+    {% if custom %}
+    <h1>from {{first}} to {{second}}</h1>
+    {% endif %}
+    {% for room in custom %}
+    cussotm
+        {{room.Room_Name}}
+        {{room.Price_Off}}
+        {{room.Day}}-
+        {{room.Second_Day}}
+        <br>
+    {% empty %}
+        
+        <h3>dose not exist</h3>
+        
+    {% endfor %}
 {% endif %}
-{% for room in custom %}
-    {{room.Room_Name}}
-    {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
-    {{room.site}}
-    <br>
-{% empty %}
-<h3>dose not exist</h3>
-{% endfor %}
 <br>
 <br>
 <h1>All Ghasr Rooms</h1>
-{% for room in sue %}
+{% for room in one %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in almas %}
+{% for room in three_rooms %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in saf %}
+{% for room in four_rooms %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in turk %}
+{% for room in toeen %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in iran %}
+{% for room in Darvish %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Berelian %}
+{% for room in espa %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Emperial %}
+{% for room in room %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in India %}
+{% for room in four %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Africa %}
+{% for room in room %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Tailand %}
+{% for room in session %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Russa %}
+{% for room in three %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Turkish %}
+{% for room in Es %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Italian %}
+{% for room in standard %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in Arabic %}
+{% for room in stan %}
     {{room.Room_Name}}
     {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
+    {{room.Day}}
     {{room.site}}
     <br>
 {% endfor %}
 <br>
 <br>
-{% for room in tamaddon %}
-    {{room.Room_Name}}
-    {{room.Price_Off}}
-    {{room.Day}}-
-    {{room.Second_Day}}
-    {{room.site}}
-    <br>
-{% endfor %}
-<br>
-<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -40,9 +40,10 @@ INSTALLED_APPS = [
     'django_celery_results',
 
     'calculation',
-    'django_extensions',
 
+    'django_extensions',
     'jalali_date',
+    'widget_tweaks',
 ]
 
 
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'celeryapp.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR,'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,6 +132,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'static')
+
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -147,20 +151,16 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    # "sample_task": {
-    #     "task": "calculation.tasks.sample_task",
-    #     "schedule": crontab(minute="*/5"),
-    # },
-    # "Snap_task": {
-    #     "task": "calculation.tasks.Snap_task",
-    #     "schedule": crontab(minute="*/30"),
-    # },
-    "Ali_task": {
-        "task": "calculation.tasks.Ali_task",
-        "schedule": crontab(minute="*/15"),
+    "Eghamat_task": {
+        "task": "calculation.tasks.Eghamat_task",
+        "schedule": crontab(minute="*/30"),
     },
-    # "Eghamat_task": {
-    #     "task": "calculation.tasks.Eghamat_task",
+    "Snap_task": {
+        "task": "calculation.tasks.Snap_task",
+        "schedule": crontab(minute="*/30"),
+    },
+    # "Ali_task": {
+    #     "task": "calculation.tasks.Ali_task",
     #     "schedule": crontab(minute="*/30"),
     # },
 }

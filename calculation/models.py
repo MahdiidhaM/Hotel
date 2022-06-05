@@ -82,24 +82,20 @@ class Site(models.Model):
     site_name = models.CharField(max_length=300)
     def __str__(self):
         return self.site_name
-
-
+        
 class Hotel(models.Model):
     hotel_name = models.CharField(max_length=300)
-    hotel_star = models.CharField(max_length=200,blank=True,null=True)
-    hotel_vote = models.CharField(max_length=200,blank=True,null=True)
     hotel = models.ForeignKey(Site,on_delete=models.CASCADE,blank=True,null=True)
     def __str__(self):
         return self.hotel_name
-        
     
 class Room_Detail(models.Model):
     Room_Name = models.CharField(max_length=200)
     Night = models.CharField(max_length=200,blank=True,null=True)
-    Future = models.CharField(max_length=300,blank=True,null=True)
+    Bed_Type = models.CharField(max_length=300,blank=True,null=True)
     Person_Number = models.CharField(max_length=300,blank=True,null=True)
     Price_Origin = models.CharField(max_length=200,blank=True,null=True)
-    Off = models.CharField(max_length=200,blank=True,null=True)
+    Extra_Person = models.CharField(max_length=200,blank=True,null=True)
     Price_Off = models.CharField(max_length=200,blank=True,null=True)
     Day = models.DateField(blank=True,null=True)
     Second_Day = models.DateField(blank=True,null=True)
@@ -109,10 +105,13 @@ class Room_Detail(models.Model):
         return self.Room_Name
 
 
+
+
 class Information(models.Model):
     image = models.ImageField(upload_to='image',blank=True,null=True)
     hotel = models.CharField(max_length=450)
     star = models.IntegerField()
+    slug = models.SlugField(blank=True,null=True)
     text = models.TextField()
     address = models.CharField(max_length=600)
     def __str__(self):

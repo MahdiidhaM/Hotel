@@ -2,7 +2,13 @@ from django import forms
 from .models import History
 from jalali_date.fields import JalaliDateField, SplitJalaliDateTimeField
 from jalali_date.widgets import AdminJalaliDateWidget, AdminSplitJalaliDateTime
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
+class User_Form(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','password1','password2','email']
 
 class TestForm(forms.ModelForm):
     class Meta:

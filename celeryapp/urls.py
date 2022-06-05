@@ -18,18 +18,24 @@ from django.contrib import admin
 from calculation.views import *
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('Snap/',Snap),
+    path("login/", views.LoginView.as_view(), name="login"),
+    path("logout/", views.LogoutView.as_view(), name="logout"),
+    path('Madineh-Al-Reza/',Snap,name='Madineh-Al-Reza'),
     path('Ali_task/',Eghamat_task),
     # path('price/',price),
     path('Darvish/',Darvish,name='Darvish'),
-    path('Almas/',Almas,name='Almas'),
+    path('Almas2/',Almas2,name='Almas2'),
     path('Homa/',Homa,name='Homa'),
     path('Javad/',Javad,name='Javad'),
-    path('Ghasr/',Ghasr,name='Ghasr'),
+    path('Ghasr_Tala/',Ghasr_Tala,name='Ghasr_Tala'),
     path('cal/',cal,name='cal'),
+    path('SignUp/',sign_up,name='register'),
+    # path('snap_task/',snap_task,name='snap_task'),
+    
     # path('main/',main,name='main'),
 ]
 

@@ -11,9 +11,21 @@
     <title>Groovin Bootstrap Template - Index</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
+    <style>
+        @font-face {
+            font-family: 'BMitra';
+            src: url('{% static "fonts/font/BMitra.eot" %}');
+            src: url('{% static "fonts/font/BMitra.woff" %}') format('woff'),
+                url('{% static "fonts/font/BMitra.ttf" %}') format('ttf');
+            font-style: normal;
+            font-weight: normal;
+            font-display: swap;
+            }
+    </style>
     <link rel="stylesheet" href="{% static 'admin/jquery.ui.datepicker.jalali/themes/base/jquery-ui.min.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'css/file.css' %}">
     <link rel="stylesheet" href="{% static 'css/templatemo-plot-listing.css' %}">
     <link rel="stylesheet" href="{% static 'css/animated.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.css' %}">
@@ -59,31 +71,81 @@
 
             <nav id="navbar" class="navbar">
                 <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto" href="#about">About</a></li>
-                <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                <li><a class="nav-link scrollto {%if request.path == '/cal/'%}active{%endif%}" href="{%if request.path == '/cal/'%}#hero{%else%}{%url 'cal'%}{%endif%}">خانه</a></li>
+                <li><a class="nav-link scrollto" href="#li-hotel">{%block title%}{%endblock%}</a></li>
+                <li><a class="nav-link scrollto" href="#portfolio">{%block about%}{%endblock%}</a></li>
                 <!-- <li><a class="nav-link scrollto " href="#portfolio">Portfolio</a></li> -->
-                <li><a class="nav-link scrollto" href="#team">Team</a></li>
-                <li><a href="blog.html">Blog</a></li>
-                <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                    <li><a href="#">Drop Down 1</a></li>
-                    <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                        <ul>
-                        <li><a href="#">Deep Drop Down 1</a></li>
-                        <li><a href="#">Deep Drop Down 2</a></li>
-                        <li><a href="#">Deep Drop Down 3</a></li>
-                        <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Drop Down 2</a></li>
-                    <li><a href="#">Drop Down 3</a></li>
-                    <li><a href="#">Drop Down 4</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                <li><a class="getstarted scrollto" href="#about">Get Started</a></li>
+                <li><a class="nav-link scrollto" href="#footer">درباره ما</a></li>
+                <div class="modal right">
+                    <div class="modal-container">
+                      <div class="modal-left">
+                        <h1 class="modal-title">Welcome!</h1>
+                        <div class="login">
+                          <form action="{% url 'login' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-block">
+                              <label for="username" class="input-label">Username</label>
+                              <input type="text" name="username" id="username" placeholder="Username">
+                            </div>
+                            <div class="input-block">
+                              <label for="password" class="input-label">Password</label>
+                              <input type="password" name="password" id="password" placeholder="Password">
+                            </div>
+                            <div class="modal-buttons">
+                              <!-- <a href="" class="">Forgot your password?</a> -->
+                              <button class="input-button">Login</button>
+                            </div>
+                            <!-- <p class="sign-up"><a href="#">Forgot your password?</a></p> -->
+                        <p class="sign-up"><a href="#" onclick="signUp()">Don't have an account? </a></p>
+                          </form>
+                        </div>
+                        <div class="signup" style="display: none;">
+                          <form action="{% url 'register' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="input-block">
+                              <label for="username" class="input-label">Username</label>
+                              <input type="username" name="username" id="username" placeholder="username">
+                            </div>
+                            <div class="input-block">
+                              <label for="email" class="input-label">Email</label>
+                              <input type="email" name="email" id="email" placeholder="Email">
+                            </div>
+                            <div class="input-block">
+                              <label for="password1" class="input-label">Password</label>
+                              <input type="password" name="password1" id="password1" placeholder="Password">
+                            </div>
+                            <div class="input-block">
+                              <label for="password2" class="input-label">Password2</label>
+                              <input type="password" name="password2" id="password2" placeholder="Password2">
+                            </div>
+                            
+                            <div class="modal-buttons">
+                              <!-- <a href="" class="">Forgot your password?</a> -->
+                              <button type="submit" class="input-button">Register</button>
+                            </div>
+                        <p class="sign-up"><a href="#" onclick="enter()">Do you have an account? </a></p>
+                        {% if form.errors %}
+                          {% for field in form %}
+                            {% for error in field.errors %}
+                              {{error}}
+                            {% endfor %}
+                          {% endfor %}
+                        {% endif %}
+                          </form>
+                        </div>
+                        
+                      </div>
+                      <div class="modal-right">
+                        <img src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dfd2ec5a01006fd8c4d7592a381d3776&auto=format&fit=crop&w=1000&q=80" alt="">
+                      </div>
+                      <button class="icon-button close-button">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
+                      <path d="M 25 3 C 12.86158 3 3 12.86158 3 25 C 3 37.13842 12.86158 47 25 47 C 37.13842 47 47 37.13842 47 25 C 47 12.86158 37.13842 3 25 3 z M 25 5 C 36.05754 5 45 13.94246 45 25 C 45 36.05754 36.05754 45 25 45 C 13.94246 45 5 36.05754 5 25 C 5 13.94246 13.94246 5 25 5 z M 16.990234 15.990234 A 1.0001 1.0001 0 0 0 16.292969 17.707031 L 23.585938 25 L 16.292969 32.292969 A 1.0001 1.0001 0 1 0 17.707031 33.707031 L 25 26.414062 L 32.292969 33.707031 A 1.0001 1.0001 0 1 0 33.707031 32.292969 L 26.414062 25 L 33.707031 17.707031 A 1.0001 1.0001 0 0 0 32.980469 15.990234 A 1.0001 1.0001 0 0 0 32.292969 16.292969 L 25 23.585938 L 17.707031 16.292969 A 1.0001 1.0001 0 0 0 16.990234 15.990234 z"></path>
+                  </svg>
+                        </button>
+                    </div>
+                    <button class="modal-button ">login</button>
+                  </div>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -167,7 +229,53 @@
     <!-- Template Main JS File -->
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/owl-carousel.js' %}"></script>
+    <script>
+      const body = document.querySelector("body");
+  const modal = document.querySelector(".modal");
+  const modalButton = document.querySelector(".modal-button");
+  const closeButton = document.querySelector(".close-button");
+  // const scrollDown = document.querySelector(".scroll-down");
+  let isOpened = false;
+  
+  const openModal = () => {
+    modal.classList.add("is-open");
+    body.style.overflow = "hidden";
+  };
+  
+  const closeModal = () => {
+    modal.classList.remove("is-open");
+    body.style.overflow = "initial";
+  };
+  
+  // window.addEventListener("scroll", () => {
+  //   if (window.scrollY > window.innerHeight / 3 && !isOpened) {
+  //     isOpened = true;
+  //     scrollDown.style.display = "none";
+  //     openModal();
+  //   }
+  // });
+  
+  modalButton.addEventListener("click", openModal);
+  closeButton.addEventListener("click", closeModal);
+  
+  document.onkeydown = evt => {
+    evt = evt || window.event;
+    evt.keyCode === 27 ? closeModal() : false;
+  };
+  var login = document.querySelector('.login')
+  var register = document.querySelector('.signup')
+  function signUp(){
+    login.style = "display:none;"
+    register.style = "height:100%;"
 
+    }
+    function enter(){
+    register.style = "display:none;"
+    login.style = "height:100%;"
+
+    }
+  
+  </script>
     </body>
 
 </html>

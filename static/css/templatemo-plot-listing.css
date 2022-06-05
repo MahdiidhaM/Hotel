@@ -173,19 +173,53 @@ body {
   }
 }
 
+.form-box{
+  padding: 10px 0px 10px  0px;
+  background-color: rgb(247, 247, 247);
+}
+
+.form-box .pack{
+  padding: 6px 40px 6px 40px;
+}
+
+.form-class .input-submit{
+  background: #50d8afab;
+  border: 1px solid #50d8afab;
+}
+.form-class .input-submit:hover{
+  background: #50d8af;
+  border: 1px solid #50d8af;
+}
+.form-class div input:focus{
+  box-shadow: none;
+  border-color: #50d8af;
+}
+
+.form-class div select:focus{
+  box-shadow: none;
+  border-color: #50d8af;
+}
+
+.pack div label{
+  font-size: 18px;
+}
+
 .page-section {
   margin-top: 120px;
 }
 
 .section-heading h2 {
   font-size: 35px;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
   text-transform: capitalize;
   color: #2a2a2a;
   font-weight: 700;
   position: relative;
   z-index: 2;
   line-height: 44px;
+  width: 500px;
+  left: 20%;
+  border-bottom: solid 1px #00000012;
 }
 
 .section-heading h6 {
@@ -197,22 +231,25 @@ body {
 
 .main-white-button a {
   display: inline-block;
-  background-color: #50d8afcb;
+  background-color: #50d8af82;
   font-size: 15px;
   font-weight: 400;
   color: #fff;
   text-transform: capitalize;
-  padding: 12px 25px;
+  padding: 12px 6px;
   border-radius: 7px;
   letter-spacing: 0.25px;
   transition: all .3s;
+  cursor: pointer;
+  -webkit-animation-delay: 0.8s;
+  animation-delay: 0.8s;
 }
 
 .main-white-button a i {
   margin-right: 10px;
   width: 22px;
   height: 22px;
-  background-color: #50d8af;
+  background-color: #50d8afb5;
   color: #fff;
   border-radius: 50%;
   display: inline-block;
@@ -223,7 +260,7 @@ body {
 
 .main-white-button a:hover {
   background-color: #50d8af;
-  color: rgba(255, 255, 255, 0.678);
+  color: rgb(255, 255, 255);
 }
 
 /* 
@@ -725,7 +762,7 @@ Banner Style
   background-position: center center;
   background-size: cover;
   /* background-image: url(../images/banner-bg.jpg); */
-  padding: 4px 0px 100px 0px;
+  padding: 200px 0px 100px 0px;
   position: relative;
   overflow: hidden;
 }
@@ -742,9 +779,9 @@ Banner Style
 }
 
 .main-banner .top-text h2 {
-  color: #fff;
-  font-size: 45px;
-  font-weight: 800;
+  color: #484848;
+  font-size: 31px;
+  font-weight: 600;
   text-transform: capitalize;
   margin-top: 15px;
   margin-bottom: 45px;
@@ -792,7 +829,7 @@ Banner Style
 
 form#search-form {
   background-color: #fff;
-  padding: 0px 0px 0px 30px;
+  padding: 0px 0px 0px 0px;
   width: 100%;
   border-radius: 7px;
   display: inline-block;
@@ -803,21 +840,40 @@ form#search-form select,
 form#search-form input {
   width: 100%;
   height: 36px;
+  
   background-color: transparent;
   border: none;
   color: #2a2a2a;
-  font-size: 15px;
+  font-size: 23px;
   outline: none;
+  text-align: center;
 }
 
 .form-select:focus {
   box-shadow: none;
 }
 
+.rtext:first-child{
+  text-align: right;
+  font-size: 16px;
+  padding-right: 22px;
+  color: #00000085;
+}
+
+.main-button span{
+  font-size: 21px;
+}
+/* .rtext:last-child{
+  padding-right: 22px;
+} */
+
+.bottom-side{
+  margin-bottom: 10px;
+}
 form#search-form input.searchText {
-  border-left: 1px solid #8d99af;
+  /* border-left: 1px solid #8d99af; */
   border-right: 1px solid #8d99af;
-  padding: 0px 30px;
+  /* padding: 0px 30px; */
 }
 
 form#search-form input::placeholder {
@@ -833,8 +889,8 @@ form#search-form button {
   padding: 15px;
   color: #fff;
   font-size: 15px;
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 7px;
+  border-top-left-radius: 7px;
+  border-bottom-left-radius: 7px;
 }
 
 form#search-form button i {
@@ -993,7 +1049,7 @@ Recent Listing
 
 .recent-listing .section-heading {
   text-align: center;
-  margin-bottom: 80px;
+  margin-top: 20px;
 }
 
 .recent-listing .item .listing-item {
@@ -1021,13 +1077,13 @@ Recent Listing
 
 .recent-listing .item .right-content {
   display: inline-block;
-  padding: 60px;
+  padding: 10px 60px 60px 60px;
 }
 
 .recent-listing .item .right-content ul.rate {
   position: absolute;
   /* right: 60px; */
-  top: 63px;
+  top: 24px;
 }
 
 .recent-listing .item .right-content ul.rate li {
@@ -1055,7 +1111,7 @@ Recent Listing
 .recent-listing .item .right-content span.price {
   color: #2a2a2a;
   font-size: 15px;
-  margin-top: 66px;
+  /* margin-top: 66px; */
   display: block;
   margin-bottom: 15px;
 }
@@ -1092,7 +1148,7 @@ Recent Listing
 .recent-listing .item .right-content ul.info li {
   display: inline-block;
   margin-bottom: 15px;
-  margin-right: 30px;
+  /* margin-right: 30px; */
   width: 100%;
 }
 
@@ -1108,8 +1164,8 @@ Recent Listing
 
 .recent-listing .item .right-content .main-white-button {
   position: absolute;
-  right: 60px;
-  bottom: 60px;
+  right: 40px;
+  /* bottom: 60px; */
 }
 
 .recent-listing .owl-dots {
@@ -1931,7 +1987,7 @@ responsive
     left: 86px;
   }
   form#search-form {
-    padding: 30px;
+    padding: 15px 30px 25px 30px;;
   }
   .popular-categories .naccs .menu .thumb,
   .category-post .naccs .menu div h4 {
@@ -1953,7 +2009,7 @@ responsive
   }
   .recent-listing .item .right-content span.price,
   .listing-page .item .right-content span.price {
-    margin-top: 60px;
+    /* margin-top: 60px; */
   }
   .recent-listing .item .right-content ul.rate,
   .listing-page .item .right-content ul.rate {
@@ -1969,12 +2025,22 @@ responsive
 @media (max-width: 992px) {
   form#search-form select,
   form#search-form input {
+    border-right: none;
     border: 1px solid #8d99af;
     border-radius: 7px;
-    margin-bottom: 15px;
+    margin-bottom: 3px;
+    margin-top: 3px;
   }
   form#search-form button {
     border-radius: 7px;
+    margin-top: 7px;
+    width: 69%;
+    height: 33%;
+    background-color: #50d8af;
+    border: none;
+    padding: 7px;
+    color: #fff;
+    font-size: 15px;
   }
   .listing-page .naccs .menu {
     margin-bottom: 30px;
@@ -2010,17 +2076,31 @@ responsive
   .listing-page .item .listing-item {
     display: inline-block;
   }
+  .recent-listing .item .right-content{
+    padding: 13px 20px 30px 20px;
+  }
+  .recent-listing .item .right-content ul.rate li{
+    padding-right: 0;
+  }
+  .recent-listing .owl-dots{
+    margin-bottom: 30px;
+  }
   .recent-listing .item .right-content ul.rate,
   .listing-page .item .right-content ul.rate {
-    top: 77px;
+    top: 18px;
     position: absolute;
     left: 0;
+    padding-left: 10px;
+  }
+  .recent-listing .item .listing-item{
+    margin-bottom: 0;
   }
   .recent-listing .item .right-content .main-white-button,
   .listing-page .item .right-content .main-white-button {
     position: relative;
     left: 0px;
     bottom: 0px;
+    text-align: center;
     margin-top: 30px;
   }
   .recent-listing .item .right-content h4 {
@@ -2029,7 +2109,7 @@ responsive
   }
   .recent-listing .item .right-content .right-side {
     position: absolute;
-    right: 0;
+    right: 7px;
     top: 60px;
   }
   footer {
@@ -2082,10 +2162,14 @@ responsive
   .category-post .icon {
     transform: translateX(-22px);
   }
+  .section-heading h2{
+    width: 100%;
+    left: 0;
+  }
 }
 
 .set-pos{
   position: absolute;
-  right: 60px;
-  top: 60px;
+  right: 40px;
+  top: 21px;
 }

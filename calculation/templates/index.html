@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{%block title%} هتل ها {%endblock%}
+{%block about%} درباره سایت {%endblock%}
 {% block content %}
   <!-- ======= Hero Section ======= -->
+  
   <section id="hero">
     <div class="hero-container">
       <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -63,21 +67,54 @@
     </div>
   </section><!-- End Hero -->
 
+  <!-- <div class="container right mt-4">
+    <div class="col-lg-8 m-auto" style="padding: 30px 25px 30px 25px; background-color: rgb(247, 247, 247);">
+      <div class="row text-center">
+        <div class="col-lg-6" style="padding-right: 40px;padding-left: 50px;">
+          <form class="form-class" method="post">
+            {% csrf_token %}
+            <div style="text-align:right">
+              <label for="exampleInputPassword1" class="form-label m-0">Password</label>
+            <input type="text" name="hotel_name" class="form-control" id="exampleInputPassword1">
+            </div>
+            <input class="input-submit" type="submit" value="send">
+          </form>
+      </div>
+      <div class="col-lg-6" style="padding-right: 40px;padding-left: 50px;border-right: solid 1px #00000036;">
+        <form class="form-class" method="post">
+          {% csrf_token %}
+          <div style="text-align:right">
+          <label for="exampleInputPassword1" class="form-label m-0">Password</label>
+          <select name="star" class="form-select" style="direction: ltr;" id="exampleInputPassword1">
+            <option selected="">select</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          </div>
+          <input class="input-submit" type="submit" value="send">
+        </form>
+    </div>
+    </div>
+  </div>
+  </div> -->
+
   <main id="main">
 
     <!-- Start Show Hotel -->
 
     
-  <div class="recent-listing">
+  <div id="li-hotel" class="recent-listing">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
+          
           <div class="section-heading">
-            <h2>Recent Listing</h2>
-            <h6>Check Them Out</h6>
+            <h2>لیست هتل ها</h2>
           </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-lg-9">
           <div class="owl-carousel owl-listing">
             {% for hotel_items in Hotels %}
               <div class="item">
@@ -86,7 +123,7 @@
                       <div class="col-lg-12" >
                         <div class="listing-item">
                           <div class="left-image">
-                            <a href="#"><img src="{{Hotel.image.url}}" alt=""></a>
+                            <a href="{% url Hotel.slug %}"><img src="{{Hotel.image.url}}" alt=""></a>
                           </div>
                           <div class="right-content align-self-center">
                             <!-- <h6>by: Sale Agent</h6> -->
@@ -96,12 +133,11 @@
                               {% endfor %}
                             </ul>
                             
-                            <a class="right set-pos right-side" href="#"><h4>{{Hotel.id}}. {{Hotel.hotel}}</h4></a>
-                            <span class="price"><div class="icon"><img src="{% static 'images/listing-icon-01.png' %}" alt=""></div> $450 - $950 / month with taxes</span>
-                            <ul class="info">
-                              <li><img src="{% static 'images/listing-icon-02.png' %}" alt=""> 4 Bedrooms</li>
-                              <li><img src="{% static 'images/listing-icon-03.png' %}" alt=""> 4 Bathrooms</li>
+                            <a class="right set-pos right-side" href="{% url Hotel.slug %}"><h4>{{forloop.counter}}. {{Hotel.hotel}}</h4></a>
+                            <ul class="info right" style="margin-top: 50px;">
+                              <li><img src="{% static 'images/listing-icon-02.png' %}" alt=""> 4 اتاق</li>
                             </ul>
+                            <span class="price right"><div class="icon"><img src="{% static 'images/listing-icon-01.png' %}" alt=""></div> {{ Hotel.address }}</span>
                             <div class="main-white-button">
                               <a href="contact.html"><i class="fa fa-eye"></i> Contact Now</a>
                             </div>
@@ -114,6 +150,40 @@
             {% endfor %}
           </div>
         </div>
+        <div class="col-lg-3">
+          <div class="right">
+            <div class="m-auto form-box">
+              <div class="row text-center">
+                <div class="pack" >
+                  <form class="form-class" style="border-bottom: solid 1px #00000021;" method="post">
+                    {% csrf_token %}
+                    <div style="text-align:right">
+                      <label for="exampleInputPassword1" class="form-label m-0">جستجو هتل</label>
+                    <input type="text" name="hotel_name" class="form-control text-br" id="exampleInputPassword1" placeholder="نام هتل">
+                    </div>
+                    <input class="input-submit" type="submit" value="send" style="margin-bottom: 22px;">
+                  </form>
+              </div>
+              <div class="pack">
+                <form class="form-class" method="post">
+                  {% csrf_token %}
+                  <div style="text-align:right">
+                    <label for="exampleInputPassword1" class="form-label m-0">تعداد ستاره هتل</label>
+                    <select name="star" class="form-select" style="direction: ltr;font-size: 19px;" id="exampleInputPassword1">
+                      <option selected="">ستاره</option>
+                      <option value="2">ستاره 2</option>
+                      <option value="3">ستاره 3</option>
+                      <option value="4">ستاره 4</option>
+                      <option value="5">ستاره 5</option>
+                    </select>
+                  </div>
+                  <input class="input-submit" type="submit" value="send">
+                </form>
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -121,66 +191,44 @@
     <!-- End Show Hotel -->
     
     <!-- Start Protfile -->
-    <section id="portfolio" class="portfolio">
-      <div class="container" data-aos="fade-up">
-        <div class="section-header">
-          <h2>Hotels</h2>
-          <p>Sed tamen tempor magna labore dolore dolor sint tempor duis magna elit veniam aliqua esse amet veniam enim export quid quid veniam aliqua eram noster malis nulla duis fugiat culpa esse aute nulla ipsum velit export irure minim illum fore</p>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-
-          <!-- {% for hotel in Hotels %} -->
-          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
-            <img src="{% static 'img/about.jpg' %}" class="img-fluid" alt="">
-            <div class="portfolio-info">
-              <h4>App 1</h4>
-              <p>App</p>
-            </div>
-          </div>
-          <!-- {% endfor %} -->
-
-
-        </div>
-
-      </div>
-    </section><!-- End Portfolio Section -->
 
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
+    <!-- id  counts -->
+    <section id="portfolio" class="counts">
       <div class="container">
 
         <div class="row no-gutters">
-
+          <div class="section-heading text-center">
+            <h2 style="width: 100%;left:0">اطلاعات سایت</h2>
+          </div>
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
-              <i class="bi bi-emoji-smile"></i>
-              <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Happy Clients</strong> consequuntur quae</p>
+              <i class="bi bi-door-open"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{rooms_number}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p> تعداد کل اتاق ها</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
               <i class="bi bi-journal-richtext"></i>
-              <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Projects</strong> adipisci atque cum quia aut</p>
+              <span data-purecounter-start="0" data-purecounter-end="{{rooms}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>تعداد اتاق ها</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <div class="count-box">
+              <i class="bi bi-building"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{hotels_number}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p>تعداد هتل ها</p>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-            <div class="count-box">
-              <i class="bi bi-people"></i>
-              <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>Hard Workers</strong> rerum asperiores dolor</p>
+              <i class="bi bi-diagram-3"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{site_number}}" data-purecounter-duration="1" class="purecounter"></span>
+              <p> تعداد سایت</p>
             </div>
           </div>
 
@@ -189,72 +237,7 @@
       </div>
     </section><!-- End Counts Section -->
 
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
-        </div>
-
-        <div class="row contact-info">
-
-          <div class="col-md-4">
-            <div class="contact-address">
-              <i class="bi bi-geo-alt"></i>
-              <h3>Address</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="contact-phone">
-              <i class="bi bi-phone"></i>
-              <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
-            </div>
-          </div>
-
-          <div class="col-md-4">
-            <div class="contact-email">
-              <i class="bi bi-envelope"></i>
-              <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
-            </div>
-          </div>
-
-        </div>
-
-        <div class="form">
-          <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-            <div class="row">
-              <div class="col-md-6 form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
-              </div>
-              <div class="col-md-6 form-group mt-3 mt-md-0">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
-              </div>
-            </div>
-            <div class="form-group mt-3">
-              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-            </div>
-            <div class="form-group mt-3">
-              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-            </div>
-            <div class="my-3">
-              <div class="loading">Loading</div>
-              <div class="error-message"></div>
-              <div class="sent-message">Your message has been sent. Thank you!</div>
-            </div>
-            <div class="text-center"><button type="submit">Send Message</button></div>
-          </form>
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
   </main><!-- End #main -->
+  
 
 {% endblock %}

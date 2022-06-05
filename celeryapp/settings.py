@@ -129,6 +129,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_REDIRECT_URL = '/cal'
+
+LOGOUT_REDIRECT_URL = '/cal'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -151,18 +154,18 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    "Eghamat_task": {
-        "task": "calculation.tasks.Eghamat_task",
-        "schedule": crontab(minute="*/30"),
-    },
-    "Snap_task": {
-        "task": "calculation.tasks.Snap_task",
-        "schedule": crontab(minute="*/30"),
-    },
-    # "Ali_task": {
-    #     "task": "calculation.tasks.Ali_task",
+    # "Eghamat_task": {
+    #     "task": "calculation.tasks.Eghamat_task",
     #     "schedule": crontab(minute="*/30"),
     # },
+    # "Snap_task": {
+    #     "task": "calculation.tasks.Snap_task",
+    #     "schedule": crontab(minute="*/30"),
+    # },
+    "Ali_task": {
+        "task": "calculation.tasks.Ali_task",
+        "schedule": crontab(minute="*/30"),
+    },
 }
 
 JALALI_DATE_DEFAULTS = {

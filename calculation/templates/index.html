@@ -18,10 +18,10 @@
           <div class="carousel-item active" style="background-image: url({% static 'img/photo_1485637151.jpg' %});">
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown">Grow Your Business</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <h2 class="animate__animated animate__fadeInDown">!خوش آمدید</h2>
+                <p class="animate__animated animate__fadeInUp">قیمت هتل هارا در شهر مشهد و در سایت های مختلف مقایسه کنید و اتاق موردنظر خود را انتخاب کنید.</p>
                 <div>
-                  <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
                 </div>
               </div>
             </div>
@@ -31,10 +31,10 @@
           <div class="carousel-item" style="background-image: url({% static 'img/Almas2/بوفه-اسلایدر.jpg' %});">
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown">Lorem Ipsum Dolor</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <h2 class="animate__animated animate__fadeInDown">در حال بروزرسانی</h2>
+                <p class="animate__animated animate__fadeInUp">در حال حاضر ۵ سایت دردسترس و قابل مقایسه هستند و به زودی تعداد بیشتری قرار میگیرد.</p>
                 <div>
-                  <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
                 </div>
               </div>
             </div>
@@ -44,10 +44,9 @@
           <div class="carousel-item" style="background-image: url({% static 'img/Reza/harram-jjj.jpg' %});">
             <div class="carousel-container">
               <div class="carousel-content">
-                <h2 class="animate__animated animate__fadeInDown">Sequi ea ut et est quaerat</h2>
-                <p class="animate__animated animate__fadeInUp">Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel. Minus et tempore modi architecto.</p>
+                <p class="animate__animated animate__fadeInUp">در حال حاضر حدود ۱۰ هتل وبیش از ۳۰۰۰ اتاق در سایت وجود دارد وبزودی هتل های ببیشتری قرار میگیرد.</p>
                 <div>
-                  <a href="#about" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
                 </div>
               </div>
             </div>
@@ -114,12 +113,12 @@
             <h2>لیست هتل ها</h2>
           </div>
         </div>
+        {% if Hotels_list != '' %}
         <div class="col-lg-9">
           <div class="owl-carousel owl-listing">
-            {% for hotel_items in Hotels %}
               <div class="item">
                 <div class="row">
-                    {% for Hotel in hotel_items %}
+                    {% for Hotel in Hotels_list %}
                       <div class="col-lg-12" >
                         <div class="listing-item">
                           <div class="left-image">
@@ -147,15 +146,52 @@
                     {% endfor %}
                 </div>
               </div>
+          </div>
+        </div>
+        {% else %}
+        <div class="col-lg-9">
+          <div class="owl-carousel owl-listing">
+            {% for hotel_items in Hotels %}
+              <div class="item">
+                <div class="row">
+                    {% for Hotel in hotel_items %}
+                      <div class="col-lg-12" >
+                        <div class="row listing-item">
+                          <div class="left-image col-lg-5">
+                            <a class="hotel-title"><img src="{{Hotel.image.url}}" alt=""></a>
+                          </div>
+                          <div class="right-content align-self-center col-lg-6">
+                            <!-- <h6>by: Sale Agent</h6> -->
+                            <ul id="add-star"  class="rate">
+                              {% for _ in 'x'|rjust:Hotel.star %}
+                              <li><l class="fa fa-star" style="color: #50d8af;"></l></li>
+                              {% endfor %}
+                            </ul>
+                            
+                            <a class="right set-pos right-side" href="{% url Hotel.slug %}"><h4>{{forloop.counter}}. {{Hotel.hotel}}</h4></a>
+                            <ul class="info right" style="margin-top: 50px;">
+                              <li><img src="{% static 'images/listing-icon-02.png' %}" alt=""> 4 اتاق</li>
+                            </ul>
+                            <span class="price right"><div class="icon"><img src="{% static 'images/listing-icon-01.png' %}" alt=""></div> {{ Hotel.address }}</span>
+                            <div class="main-white-button">
+                              <a href="contact.html"><i class="fa fa-eye"></i> Contact Now</a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    {% endfor %}
+                </div>
+              </div>
             {% endfor %}
           </div>
         </div>
+        {% endif %}
         <div class="col-lg-3">
           <div class="right">
             <div class="m-auto form-box">
               <div class="row text-center">
                 <div class="pack" >
-                  <form class="form-class" style="border-bottom: solid 1px #00000021;" method="post">
+                  <form id="hotel-form" class="form-class" style="border-bottom: solid 1px #00000021;" method="post">
                     {% csrf_token %}
                     <div style="text-align:right">
                       <label for="exampleInputPassword1" class="form-label m-0">جستجو هتل</label>
@@ -199,7 +235,7 @@
 
         <div class="row no-gutters">
           <div class="section-heading text-center">
-            <h2 style="width: 100%;left:0">اطلاعات سایت</h2>
+            <h2 style="width: 100%;left:0">(درحال بروزرسانی)درباره سایت</h2>
           </div>
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
@@ -238,6 +274,21 @@
     </section><!-- End Counts Section -->
 
   </main><!-- End #main -->
-  
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script>
+        $(document).ready(function(){
+        $("#hotel-form").submit(function (e) {
+          e.preventDefault();
+          // var form = $(this).closest("form")
+          var serializedData = $(this).serialize();
+          $.ajax({
+            url: "{% url 'cal' %}",
+            type: 'POST',
+            data: serializedData,
+          });
+    
+        });
+      });
+      </script>
 
 {% endblock %}

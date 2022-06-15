@@ -209,10 +209,10 @@ body {
 }
 
 .section-heading h2 {
-  font-size: 35px;
+  font-size: 32px;
   margin-bottom: 30px;
   text-transform: capitalize;
-  color: #2a2a2a;
+  color: #0d0473;
   font-weight: 700;
   position: relative;
   z-index: 2;
@@ -230,8 +230,9 @@ body {
 }
 
 .main-white-button a {
+  cursor: pointer;
   display: inline-block;
-  background-color: #50d8af82;
+  background-color: #3f36abeb;
   font-size: 15px;
   font-weight: 400;
   color: #fff;
@@ -249,7 +250,7 @@ body {
   margin-right: 10px;
   width: 22px;
   height: 22px;
-  background-color: #50d8afb5;
+  background-color: #1608b3;
   color: #fff;
   border-radius: 50%;
   display: inline-block;
@@ -259,7 +260,7 @@ body {
 }
 
 .main-white-button a:hover {
-  background-color: #50d8af;
+  background-color: #221a7aeb;
   color: rgb(255, 255, 255);
 }
 
@@ -779,7 +780,7 @@ Banner Style
 }
 
 .main-banner .top-text h2 {
-  color: #484848;
+  color: #1a1a1a;
   font-size: 31px;
   font-weight: 600;
   text-transform: capitalize;
@@ -853,11 +854,28 @@ form#search-form input {
   box-shadow: none;
 }
 
+.bottom-side fieldset input{
+  padding-right: 35px;
+}
+
 .rtext:first-child{
   text-align: right;
   font-size: 16px;
   padding-right: 22px;
   color: #00000085;
+}
+
+.reqular fieldset input{
+  padding-right: 5px;
+}
+
+.calender-icon{
+  padding-top: 29px;
+}
+
+.calender-icon i{
+  font-size: 24px;
+  color:  #252b84;
 }
 
 .main-button span{
@@ -1066,7 +1084,7 @@ Recent Listing
   overflow: hidden;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
-  width: 500px;
+  width: 400px;
 }
 
 .recent-listing .item .left-image img {
@@ -1096,7 +1114,7 @@ Recent Listing
 }
 
 .recent-listing .item .right-content h4 {
-  font-size: 20px;
+  font-size: 22px;
   color: #2a2a2a;
   font-weight: 700;
   margin-bottom: 20px;
@@ -1110,16 +1128,16 @@ Recent Listing
 
 .recent-listing .item .right-content span.price {
   color: #2a2a2a;
-  font-size: 15px;
+  font-size: 17px;
   /* margin-top: 66px; */
   display: block;
   margin-bottom: 15px;
 }
 
 .recent-listing .item .right-content span.price .icon {
-  width: 30px;
-  height: 30px;
-  background-color: #50d8af;
+  width: 29px;
+  height: 29px;
+  background-color: #97a1b6d6;
   border-radius: 50%;
   text-align: center;
   line-height: 28px;
@@ -2030,6 +2048,7 @@ responsive
     border-radius: 7px;
     margin-bottom: 3px;
     margin-top: 3px;
+    padding-right: 0;
   }
   form#search-form button {
     border-radius: 7px;

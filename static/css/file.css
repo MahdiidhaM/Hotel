@@ -6,7 +6,7 @@
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
   color: rgba(#000, 0.7);
 }
 
@@ -60,7 +60,7 @@ body {
 
 .modal-button {
   color: darken(#8c7569, 5%);
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
   font-size: 18px;
   cursor: pointer;
   border: 0;
@@ -143,7 +143,7 @@ body {
   color: #fff;
   border-radius: 4px;
   background: #8c7569;
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
   transition: 0.3s;
   cursor: pointer;
 }
@@ -155,7 +155,7 @@ body {
 .input-label {
   font-size: 11px;
   text-transform: uppercase;
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
   font-weight: 600;
   letter-spacing: 0.7px;
   color: #8c7569;
@@ -165,18 +165,21 @@ body {
 .input-block {
   display: flex;
   flex-direction: column;
-  padding: 10px 10px 8px;
+  padding: 5px 10px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-bottom: 20px;
   transition: 0.3s;
 }
+
+
+
 .input-block  input {
     outline: 0;
     border: 0;
     padding: 4px 0 0;
-    font-size: 14px;
-    font-family: "Nunito", sans-serif;
+    font-size: 15px;
+    /* font-family: "Nunito", sans-serif; */
 }
 .input-block input::placeholder {
       color: #ccc;
@@ -184,10 +187,10 @@ body {
     }
 
 .input-block input:focus-within {
-  border-color: #8c7569;
+  border-color: #50d8af42;
 }
 .input-block .input-label {
-      color: rgba(#8c7569, 0.8);
+      color: rgba(#50d8af42, 0.8);
     }
 
 .icon-button {

@@ -102,9 +102,6 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
@@ -154,18 +151,26 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    # "Eghamat_task": {
-    #     "task": "calculation.tasks.Eghamat_task",
-    #     "schedule": crontab(minute="*/30"),
-    # },
+    "Eghamat_task": {
+        "task": "calculation.tasks.Eghamat_task",
+        "schedule": crontab(minute="*/30"),
+    },
     # "Snap_task": {
     #     "task": "calculation.tasks.Snap_task",
     #     "schedule": crontab(minute="*/30"),
     # },
-    "Ali_task": {
-        "task": "calculation.tasks.Ali_task",
-        "schedule": crontab(minute="*/30"),
-    },
+    # "Ali_task": {
+    #     "task": "calculation.tasks.Ali_task",
+    #     "schedule": crontab(minute="*/55"),
+    # },
+    # "Eli_task": {
+    #     "task": "calculation.tasks.Eli_task",
+    #     "schedule": crontab(minute="*/30"),
+    # },
+    # "Jainjas": {
+    #     "task": "calculation.tasks.Jainjas",
+    #     "schedule": crontab(minute="*/10"),
+    # },
 }
 
 JALALI_DATE_DEFAULTS = {

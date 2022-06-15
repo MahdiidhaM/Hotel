@@ -150,7 +150,7 @@ a:hover {
   justify-content: space-between;
   padding: 0 4px;
   /* font-family: "Roboto", sans-serif; */
-  font-size: 18px;
+  font-size: 19px;
   /* font-weight: 500; */
   color: rgba(255, 255, 255, 0.7);
   white-space: nowrap;
@@ -497,6 +497,7 @@ a:hover {
 @media (min-width: 1024px) {
   #hero p {
     width: 60%;
+    font-size: 25px;
   }
   #hero .carousel-control-prev, #hero .carousel-control-next {
     width: 5%;
@@ -611,8 +612,8 @@ section {
 .counts .count-box p {
   padding: 15px 0 0 0;
   margin: 0 0 0 60px;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
+  /* font-family: "Roboto", sans-serif; */
+  font-size: 20px;
   color: #505050;
 }
 .counts .count-box a {
@@ -716,13 +717,13 @@ section {
 
 .modal-button {
   color: darken(#8c7569, 5%);
-  font-family: "Nunito", sans-serif;
-  font-size: 18px;
+  /* font-family: "Nunito", sans-serif; */
+  font-size: 20px;
   cursor: pointer;
   border: solid 1px #50d8af;
   outline: 0;
-  padding: 6px 20px;
-  border-radius: 6px;
+  padding: 4px 21px;
+  border-radius: 5px;
   background: #0000006b;
   color: #fff;
   box-shadow: 0px 4px 17px rgba(80, 216, 175, 0.65);
@@ -791,65 +792,84 @@ section {
   font-size: 14px;
   text-align: center;
 }
-.sign-up  a {
-    color: #8c7569;
-    justify-content: center;
-  }
 
+.sign-up  a {
+    color: #4026bf;
+    justify-content: center;
+}
+
+.sign-up  a:hover {
+  color: #1c0a77;
+}
 
 .input-button {
-  padding: 8px 12px;
+  background: #4026bf;
+  padding: 5px 23px;
   outline: none;
   border: 0;
   color: #fff;
   border-radius: 4px;
-  background: #8c7569;
-  font-family: "Nunito", sans-serif;
+  font-size: 20px;
+  /* font-family: "Nunito", sans-serif; */
   transition: 0.3s;
   cursor: pointer;
 }
-.input-button:hover {
-    background: #55311c;
-  }
 
+.input-button:hover{
+  background: #1d0e68
+}
+
+/* .input-block:focus {
+  border: 1px solid #50d8af;
+} */
 
 .input-label {
-  font-size: 11px;
+  font-size: 14px;
   text-transform: uppercase;
-  font-family: "Nunito", sans-serif;
+  /* font-family: "Nunito", sans-serif; */
   font-weight: 600;
-  letter-spacing: 0.7px;
-  color: #8c7569;
+  letter-spacing: -0.05px;
+  color: #0000008c;
   transition: 0.3s;
 }
 
-.input-block {
+.form-field {
   display: flex;
   flex-direction: column;
-  padding: 10px 10px 8px;
+  padding: 2px 10px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   margin-bottom: 20px;
   transition: 0.3s;
 }
-.input-block  input {
+.form-field  input {
     outline: 0;
     border: 0;
     padding: 4px 0 0;
     font-size: 14px;
-    font-family: "Nunito", sans-serif;
+    /* font-family: "Nunito", sans-serif; */
 }
-.input-block input::placeholder {
+.form-field input::placeholder {
       color: #ccc;
       opacity: 1;
     }
 
-.input-block input:focus-within {
+.form-field input:focus-within {
   border-color: #8c7569;
 }
-.input-block .input-label {
+.form-field .input-label {
       color: rgba(#8c7569, 0.8);
     }
+.error{
+  border-color: red;
+}
+.error small{
+  color: red;
+}
+.success{
+  border-color: #61ce61;
+}
+
 
 .icon-button {
   outline: 0;
@@ -889,6 +909,9 @@ section {
   .modal{
     top: 39px;
   }
+  .is-open .modal-container{
+    width: 243px;
+    }
   .modal-container {
     width: 90%;
   }
@@ -900,7 +923,7 @@ section {
     padding: 4px 18px;
     background: #50d8afcc;
   }
-  .input-block{
+  .form-field{
     margin-bottom: 8px;
     padding: 4px 5px 6px;
   }
@@ -1400,14 +1423,14 @@ section {
 --------------------------------------------------------------*/
 #footer {
   background: #111111;
-  padding: 0 0 30px 0;
+  padding: 0 0 8px 0;
   color: #fff;
   font-size: 14px;
 }
 #footer .footer-top {
   background: #1d1d1d;
   border-bottom: 1px solid #2f2f2f;
-  padding: 60px 0 30px 0;
+  padding: 30px 0 10px 0;
 }
 #footer .footer-top .footer-info {
   margin-bottom: 30px;
@@ -1450,7 +1473,7 @@ section {
   font-weight: 600;
   color: #fff;
   position: relative;
-  padding-bottom: 12px;
+  /* padding-bottom: 12px; */
 }
 #footer .footer-top .footer-links {
   margin-bottom: 30px;
@@ -1479,6 +1502,7 @@ section {
   transition: 0.3s;
   display: inline-block;
   line-height: 1;
+  font-size: 17px;
 }
 #footer .footer-top .footer-links ul a:hover {
   color: #50d8af;

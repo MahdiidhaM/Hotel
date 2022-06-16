@@ -5,7 +5,7 @@
 {%block title%} اتاق ها {%endblock%}
 {%block about%} هتل ها {%endblock%}
 {% block content %}
-<div id="heros" class="main-banner" style="background-image:url({% static 'img/photo_1485637151.jpg' %} );">
+<div id="heros" class="main-banner" style="background-image:url({% static 'photo_1485637151.jpg' %} );">
     <div class="container">
       <div class="row">
 
@@ -267,21 +267,6 @@
 
 <script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
 <script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
-<script>
-        $(document).ready(function(){
-        $("#search-form").submit(function (e) {
-          e.preventDefault();
-          // var form = $(this).closest("form")
-          var serializedData = $(this).serialize();
-          $.ajax({
-            url: "{% url 'Darvish' %}",
-            type: 'POST',
-            data: serializedData,
-          });
-    
-        });
-      });
-      </script>
 <script>
   var date_format = new Intl.DateTimeFormat('fa');
 

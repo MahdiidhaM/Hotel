@@ -5,7 +5,7 @@
 {%block title%} اتاق ها {%endblock%}
 {%block about%} هتل ها {%endblock%}
 {% block content %}
-<div id="heros" class="main-banner" style="background-image:url({% static 'img/photo_1485637151.jpg' %} );">
+<div id="heros" class="main-banner" style="background-image:url({% static 'photo_1485637151.jpg' %} );">
     <div class="container">
       <div class="row">
 
@@ -151,7 +151,7 @@
                             <!-- <p>{{info.Price_Off|floatformat:"g"}}</p> -->
                             
                             <div class="col-lg-6 col-6"><p> نرخ مصوب</p></div>
-                              <div class="col-lg-6 col-6"><p>  {{info.Price_Origin}} تومان</p></div>
+                              <div class="col-lg-6 col-6"><p>{% if info.Price_Origin == 'تکمیل ظرفیت' %} تکمیل ظرفیت {% else %}  {{info.Price_Origin}} تومان{% endif %}</p></div>
                           </div>
                             <div class="row m-auto border-down" >
                               <div class="col-lg-6 col-6"><p>نوع تخت</p></div>
@@ -175,9 +175,13 @@
                   <!-- <div class="col-lg-10" style="padding-left: 0;padding-right: 0;position: relative;"> -->
                     <!-- <div class="right" style="border-bottom: solid 1px black;height: 35%;"><h4>{{info.site.hotel_name}}</h4></div> -->
                     <!-- <div class="row" style="height: 65%;text-align: center;"> -->
-                      <div class="col-lg-6 col-6"><p>درسایت {{room.site.hotel.site_name}}</p></div>
+                      <div class="col-lg-6 col-6"><p>درسایت {{room.site.hotel.site_name}} </p></div>
                     <div class="col-lg-6 col-6 miss-border">
+                      {% if room.Price_Off == 'تکمیل ظرفیت' %}
+                      <p style="color: red;">تکمیل ظرفیت</p>
+                      {% else %}
                       <p>{{room.Price_Off|floatformat:'g'}}   تومان  </p>
+                      {% endif %}
                     </div>
                     <!-- </div> -->
                   <!-- </div> -->
@@ -263,21 +267,6 @@
 
 <script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
 <script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
-<script>
-        $(document).ready(function(){
-        $("#search-form").submit(function (e) {
-          e.preventDefault();
-          // var form = $(this).closest("form")
-          var serializedData = $(this).serialize();
-          $.ajax({
-            url: "{% url 'Darvish' %}",
-            type: 'POST',
-            data: serializedData,
-          });
-    
-        });
-      });
-      </script>
 <script>
   var date_format = new Intl.DateTimeFormat('fa');
 

@@ -30,10 +30,12 @@ import time as ti
 def Snap_task():
     Hotels_List = ['هتل مدینه الرضا مشهد','هتل الماس 2 مشهد','هتل مجلل درویشی مشهد','هتل هما 1 مشهد','هتل قصر طلایی مشهد',
                 'هتل سی نور مشهد','هتل بین المللی قصر مشهد','هتل هما 2 مشهد','هتل پردیسان مشهد','هتل جواد']
+    SnapTrip = 'SnapTrip'
+    Site.objects.filter(site_name=SnapTrip).delete()
     driver = webdriver.Chrome('calculation/chromedriver')
     # https://www.snapptrip.com/%D8%B1%D8%B2%D8%B1%D9%88-%D9%87%D8%AA%D9%84/%D9%85%D8%B4%D9%87%D8%AF?gclid=CjwKCAiAgbiQBhAHEiwAuQ6Bkkj7yFFiBg8j09tkzZbeQM2WHDbO9liJMIeOz80BmDdXVUPlRsLRThoCw_MQAvD_BwE&price_from=0&price_to=0&page=1
     driver.get('https://www.snapptrip.com/%D8%B1%D8%B2%D8%B1%D9%88-%D9%87%D8%AA%D9%84/%D9%85%D8%B4%D9%87%D8%AF?page=1&stars=5&order_by=max_percent&utm_source=google&utm_medium=cpc&utm_campaign=10819688532&utm_term=snapptrip&utm_content=106926085656&gclid=Cj0KCQjw-daUBhCIARIsALbkjSZve6b8niGZb1RdjkC4C1VedEaE6h4hxvwzzeEyxUrTuAEmZeLl4-kaAggXEALw_wcB')
-    Snap,created = Site.objects.update_or_create(site_name='SnapTrip')
+    Snap,created = Site.objects.update_or_create(site_name=SnapTrip)
     details = driver.find_elements(By.ID,'resultpage-hotelcard-hotelname')
     items_trip = []
     num = 0
@@ -43,8 +45,6 @@ def Snap_task():
             driver.switch_to.window(driver.window_handles[0])
             if item.text in _:
                 num+=1
-                print('-----------')
-                print(item.text)
                 item.click()
                 driver.switch_to.window(driver.window_handles[num])
 
@@ -55,9 +55,7 @@ def Snap_task():
                     l = datetime.datetime.now() + datetime.timedelta(days=datea)
                     l_next = datetime.datetime.now() + datetime.timedelta(days=datea+1)
                     bb1 = jalali.Gregorian(l.date()).persian_string()
-                    # bb2 = jalali.Gregorian(l_next.date()).persian_string()
                     numb1 = bb1.split('-')[-1]
-                    # numb2 = bb2.split('-')[-1]
                     driver.find_element(By.CLASS_NAME,'date-peacker').click()
                     calender = driver.find_elements(By.XPATH,f"//td[text()='{numb1}']")
                     if calender[0].get_attribute('class') == 'off disabled':
@@ -65,7 +63,7 @@ def Snap_task():
                     else:
                         em = 0
                     calender[em].click()
-                    driver.find_element(By.XPATH,'//*[@id="topNavHotel"]/div[2]/form/div/div/div[5]/button').click()
+                    driver.find_element(By.CLASS_NAME,'search-btn').click()
                     ti.sleep(3)
                     day_1 = driver.find_elements(By.CLASS_NAME,'form-control')[1].get_attribute('value')
                     day_2 = driver.find_elements(By.CLASS_NAME,'form-control')[2].get_attribute('value')
@@ -91,15 +89,16 @@ tommorow_date = today_date + datetime.timedelta(days= +1)
 
 @shared_task()
 def Ali_task():
+    AliBaba = 'AliBaba'
+    Site.objects.filter(site_name=AliBaba).delete()
     Hotels_List = ['مدینه الرضا مشهد','الماس 2 مشهد','مجلل درویشی مشهد','هما 1 مشهد','قصر طلایی مشهد',
                 'سی نور مشهد','بین المللی قصر مشهد','هما 2 مشهد','پردیسان مشهد','هتل جواد']
     driver = webdriver.Chrome('calculation/chromedriver')
     driver.get(f'https://www.alibaba.ir/hotel/ir-mashhad?destination=City_5be3f68be9a116befc66701b_%D9%85%D8%B4%D9%87%D8%AF+-+%D8%A7%DB%8C%D8%B1%D8%A7%D9%86&departing={today_date.date()}&returning={tommorow_date.date()}&rooms=30')
-    site,created = Site.objects.update_or_create(site_name='AliBaba')
+    site,created = Site.objects.update_or_create(site_name=AliBaba)
     driver.execute_script("window.scrollTo(0, 7000)")
     ti.sleep(5)
     links = driver.find_elements(By.CLASS_NAME,'ho-available-card__title')[:30]
-    print(len(links))
     for link in links:
         
         for hotel in Hotels_List:
@@ -124,9 +123,7 @@ def Ali_task():
             numb2 = int(bb2.split('-')[-1])
             numb3 = int(bb3.split('-')[-1])
             span = driver.find_element(By.CSS_SELECTOR,'.datepicker-text span')
-            # /html/body/div/div[1]/main/div/div[3]/aside/div/div/div/div[1]/div[1]/div[3]/div/div[3]/span
             driver.execute_script("arguments[0].click();", span)
-            # /html/body/div/div[1]/main/div/div[3]/aside/div/div/div/div[1]/div[1]/div[2]/span
             firstm = driver.find_element(By.XPATH,f"//span[text()='{numb2}']")
             d = 0
             if firstm.find_element(By.XPATH,'..').get_attribute('class') == 'calendar-cell is-disabled is-first is-passed':
@@ -230,9 +227,12 @@ def Eghamat_task():
 
 @shared_task
 def Eli_task():
-    AliGasht,created = Site.objects.update_or_create(site_name='AliGasht')
-
-    for _ in range(8):
+    chromeOptions = webdriver.ChromeOptions() 
+    chromeOptions.add_argument("--remote-debugging-port=9222")
+    EliGasht = 'EliGasht'
+    Site.objects.filter(site_name='EliGasht').delete()
+    EliGasht,created = Site.objects.update_or_create(site_name='EliGasht')
+    for _ in range(19):
         driver = webdriver.Chrome('calculation/chromedriver')    
         l_next = datetime.datetime.now() + datetime.timedelta(days=_)
         l_next_second = datetime.datetime.now() + datetime.timedelta(days=_+1)
@@ -258,7 +258,7 @@ def Eli_task():
                 driver.find_element(By.CLASS_NAME,'more-detail-room').click()
             except:
                 pass
-            hotel_ali,created = Hotel.objects.get_or_create(hotel=AliGasht,hotel_name=f'{hotel_name.text} EliGasht')
+            hotel_ali,created = Hotel.objects.get_or_create(hotel=EliGasht,hotel_name=f'{hotel_name.text} EliGasht')
             try:
                 for num_eli in driver.find_elements(By.CLASS_NAME,'room-row'):
                     price = num_eli.find_element(By.CLASS_NAME,'room-price-val')
@@ -272,16 +272,16 @@ def Eli_task():
 
 @shared_task
 def Jainjas():
+    Jainjas = 'Jainjas'
+    chromeOptions = webdriver.ChromeOptions() 
+    chromeOptions.add_argument("--remote-debugging-port=9222")
+    Site.objects.filter(site_name='Jainjas').delete()
     Jainjas,created = Site.objects.get_or_create(site_name='Jainjas')
-
     for day in range(19):
         l_next = datetime.datetime.now() + datetime.timedelta(days=day)
         l_next_second = datetime.datetime.now() + datetime.timedelta(days=day+1)
         convert_date = jalali.Gregorian(l_next.date()).persian_string().split('-')
         convert_date_next = jalali.Gregorian(l_next_second.date()).persian_string().split('-')
-        print('------------')
-        print(convert_date)
-        print(convert_date_next)
         driver = webdriver.Chrome('calculation/chromedriver')
         driver.get(f'https://jainjas.com/mashhad?from={convert_date[0]}/{convert_date[1]}/{convert_date[2]}&to={convert_date_next[0]}/{convert_date_next[1]}/{convert_date_next[2]}&searched=true&IsCertain=false&star=0')
         ti.sleep(5)
@@ -292,8 +292,10 @@ def Jainjas():
                 if hotel in link.text:
                     child_link = link.find_element(By.XPATH,'.//*')
                     driver.execute_script("arguments[0].click();", child_link)
-
-        pages = len(driver.window_handles)
+        try:
+            pages = len(driver.window_handles)
+        except:
+            pages = 8
         for page in range(1,pages):
             driver.switch_to.window(driver.window_handles[page])
             hotel_name = driver.find_element(By.CSS_SELECTOR,'h1')

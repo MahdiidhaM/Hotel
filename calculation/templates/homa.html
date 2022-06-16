@@ -5,7 +5,7 @@
 {%block title%} اتاق ها {%endblock%}
 {%block about%} هتل ها {%endblock%}
 {% block content %}
-<div id="heros" class="main-banner" style="background-image:url({% static 'img/photo_1485637151.jpg' %} );">
+<div id="heros" class="main-banner" style="background-image:url({% static 'photo_1485637151.jpg' %} );">
     <div class="container">
       <div class="row">
 
@@ -21,25 +21,35 @@
 
               <div class="col-lg-4 align-self-center">
                 <div class="row m-auto">
-                  <div class='rtext'>
-                    <span>تاریخ ورود:</span>
+                  <div class="col-lg-9 col-10">
+                    <div class='rtext' style="padding-right: 5px;">
+                      <span>تاریخ ورود:</span>
+                    </div>
+                    <div class='bottom-side reqular'>
+                  <fieldset style="color: #0000008a;">
+                    {{form.first|add_class:"date-first"|attr:"readonly=readonly"}}
+                  </fieldset>
+                    </div>
                   </div>
-                  <div class='bottom-side'>
-                <fieldset style="color: #0000008a;">
-                  {{form.first|add_class:"date-first"|attr:"readonly=readonly"}}
-                </fieldset>
+                  <div class="col-lg-3 col-2 calender-icon" >
+                    <i class="bi bi-calendar2-week"></i>
                   </div>
                 </div>
             </div>
             <div class="col-lg-4 align-self-center">
                 <div class="row m-auto">
-                  <div class='rtext'>
-                    <span>تاریخ خروج:</span>
+                  <div class="col-lg-9 col-10">
+                    <div class='rtext'>
+                      <span>تاریخ خروج:</span>
+                    </div>
+                    <div class='bottom-side'>
+                  <fieldset>
+                    {{form.second|add_class:"date-tommorow searchText"|attr:"readonly=readonly"}}
+                  </fieldset>
+                    </div>
                   </div>
-                  <div class='bottom-side'>
-                <fieldset>
-                  {{form.second|add_class:"date-tommorow searchText"|attr:"readonly=readonly"}}
-                </fieldset>
+                  <div class="col-lg-3 col-2 calender-icon" >
+                    <i class="bi bi-calendar2-week"></i>
                   </div>
                 </div>
             </div>
@@ -65,8 +75,8 @@
     <!-- ======= Venue Section ======= -->
     <section id="venue">
       <div class="container">
-        <div class="text-center">
-          <h3>اطلاعات هتل</h3>
+        <div class="box-middle">
+          <h2>اطلاعات هتل</h2>
         </div>
       <div class="" data-aos="fade-up">
 
@@ -113,8 +123,8 @@
   <!-- ======= Services Section ======= -->
   <section id="services">
     <div id="li-hotel" class="container" data-aos="fade-up">
-      <div class="text-center">
-          <h3>لیست اتاق ها</h3>
+      <div class="box-middle">
+          <h2>لیست اتاق ها</h2>
         </div>
         {% for table in final %}
                 {% for info in table %}
@@ -141,7 +151,7 @@
                             <!-- <p>{{info.Price_Off|floatformat:"g"}}</p> -->
                             
                             <div class="col-lg-6 col-6"><p> نرخ مصوب</p></div>
-                              <div class="col-lg-6 col-6"><p>  {{info.Price_Origin}} تومان</p></div>
+                              <div class="col-lg-6 col-6"><p>{% if info.Price_Origin == 'تکمیل ظرفیت' %} تکمیل ظرفیت {% else %}  {{info.Price_Origin}} تومان{% endif %}</p></div>
                           </div>
                             <div class="row m-auto border-down" >
                               <div class="col-lg-6 col-6"><p>نوع تخت</p></div>
@@ -165,9 +175,13 @@
                   <!-- <div class="col-lg-10" style="padding-left: 0;padding-right: 0;position: relative;"> -->
                     <!-- <div class="right" style="border-bottom: solid 1px black;height: 35%;"><h4>{{info.site.hotel_name}}</h4></div> -->
                     <!-- <div class="row" style="height: 65%;text-align: center;"> -->
-                      <div class="col-lg-6 col-6"><p>درسایت {{room.site.hotel.site_name}}</p></div>
+                      <div class="col-lg-6 col-6"><p>درسایت {{room.site.hotel.site_name}} </p></div>
                     <div class="col-lg-6 col-6 miss-border">
+                      {% if room.Price_Off == 'تکمیل ظرفیت' %}
+                      <p style="color: red;">تکمیل ظرفیت</p>
+                      {% else %}
                       <p>{{room.Price_Off|floatformat:'g'}}   تومان  </p>
+                      {% endif %}
                     </div>
                     <!-- </div> -->
                   <!-- </div> -->
@@ -178,20 +192,26 @@
               </a>
                   </div>
               </div>
-              
+            
                 {% endfor %}
                   </div>
                 </div>
-
-
-
-
                 {% endif %}
+                
+            
             {% endfor %}
                 {% for room in table %}
                 
                 {% endfor %}
         {% endfor %}
+        {% for room in custom %}
+    {% empty %}
+        
+        <div>
+          <h3 class="text-center mt-5">.اتاقی در تاریخ انتخابی شما وجود ندارد</h3>
+        </div>
+        
+    {% endfor %}
     </div>
   </section>
 
@@ -199,7 +219,7 @@
     <!-- Start Protfile -->
     <section id="portfolio" class="portfolio">
       <div class="container" data-aos="fade-up">
-        <div class="text-center" style="color: #0c2e8a;">
+        <div class="box-middle">
           <h2>دیگر هتل ها</h2>
         </div>
 
@@ -237,22 +257,6 @@
         <h3>dose not exist</h3>
         
     {% endfor %}
-{% else %}
-{% for room in custom %}
-    cussotm
-        {{room.Room_Name}}
-        {{room.Price_Off}}
-        {{room.Day}}-
-        {{room.Second_Day}}
-        {{room.site.hotel_name}}
-        <br>
-    {% empty %}
-        
-        <h3>dose not exist</h3>
-        
-    {% endfor %}
-    {{today_shamsi}}
-{{tommorow_shamsi}}
 {% endif %}
 
 <br>

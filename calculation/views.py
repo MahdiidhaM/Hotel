@@ -158,14 +158,13 @@ def Darvish(request):
         date_two = jalali.Persian(request.POST.get('second')).gregorian_string()
         custom = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=date_one)& Q(Second_Day=date_two))
         
-        # form = TimeForm()
         context.update({'custom':custom})
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('secDoblex_Pond')})
     else:
         custom = Room_Detail.objects.filter(Q(site__hotel_name__contains='درویش') & Q(Day=first))
         context.update({'custom':custom})
-    return render(request,'darvish.html',context)
+    return render(request,'hotels/darvish.html',context)
 
 def Almas2(request):
     form = TimeForm()
@@ -173,7 +172,7 @@ def Almas2(request):
     second = datetime.datetime.now().date()+datetime.timedelta(days=1)
     Almas_hotel = Information.objects.get(hotel__contains='الماس 2')
     all_hotel = Almas_hotel.imagesm.all()
-
+ 
     if request.method == 'POST':
         first = jalali.Persian(request.POST.get('first')).gregorian_string()
         second = jalali.Persian(request.POST.get('second')).gregorian_string()
@@ -219,7 +218,7 @@ def Almas2(request):
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('second')})
 
-    return render(request,'almas.html',context)
+    return render(request,'hotels/almas.html',context)
 
 def Homa(request):
     form = TimeForm()
@@ -231,7 +230,7 @@ def Homa(request):
     if request.method == 'POST':
         first = jalali.Persian(request.POST.get('first')).gregorian_string()
         second = jalali.Persian(request.POST.get('second')).gregorian_string()
-    # Double       = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١')) & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name='اتاق دو تخته') | Q(Room_Name='دو تخته دابل') | Q(Room_Name='اتاق دو تخته دبل'))
+
     Eghamat     = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١'))& Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='اقامت')).order_by('Price_Off')
     Tooien     = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١'))& Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='توئین')).order_by('Price_Off')
     Royal     = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١'))& Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='رویال')).order_by('Price_Off')
@@ -240,9 +239,10 @@ def Homa(request):
     Senior_Two        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١')) & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='دو') & Q(Q(Room_Name__contains='سینیور') | Q(Room_Name__contains='سنیور'))).order_by('Price_Off')
     Senior_Three        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 1') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١')) & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains=' سه') & Q(Q(Room_Name__contains='سینیور') | Q(Room_Name__contains='سنیور'))).order_by('Price_Off')
     final = [Senior_Three,Royal,Eghamat,double,Single,Senior_Two,Tooien]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Homa_hotel':Homa_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Homa_hotel':Homa_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
     if request.method == 'POST':
@@ -254,7 +254,7 @@ def Homa(request):
         context.update({'custom':custom})
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('second')})
-    return render(request,'homa.html',context)
+    return render(request,'hotels/homa.html',context)
 
 
 def Ghasr_Talaee(request):
@@ -282,9 +282,10 @@ def Ghasr_Talaee(request):
     Perances_Royal        = Room_Detail.objects.filter(Q(site__hotel_name__contains='قصر طلایی') & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='پرنسس رویال')).order_by('Price_Off')
     Royal        = Room_Detail.objects.filter(Q(site__hotel_name__contains='قصر طلایی') & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='رویال') & Q(Q(Room_Name__contains='چهار')  |Q(Room_Name__contains='آپارتمان'))).order_by('Price_Off')
     final = [Senior,jonior,eco,classic,Lactury,Perances,Atriom,Land_Scape,Prezident,Ghagar,Western,Perances_Royal,Royal]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Ghasr_tala_hotel':Ghasr_tala_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Ghasr_tala_hotel':Ghasr_tala_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
     if request.method == 'POST':
@@ -296,7 +297,7 @@ def Ghasr_Talaee(request):
         context.update({'custom':custom})
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('second')})
-    return render(request,'ghasr_talaee.html',context)
+    return render(request,'hotels/ghasr_talaee.html',context)
 
 # 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
 
@@ -361,12 +362,13 @@ def Sinoor(request):
     Three_Beds       = Room_Detail.objects.filter(Q(site__hotel_name__contains='سی نور') & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='سه تخته') & Q(Price_Off__lt=2000000)).order_by('Price_Off')
     Two_Beds        = Room_Detail.objects.filter(Q(site__hotel_name__contains='سی نور') & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='دو تخته') & Q(Q(Room_Name__contains='اتاق') | Q(Room_Name__contains='بل'))).order_by('Price_Off') # Must be change
     final = [Prances,Prezident,Salam,Three_Beds,Two_Beds,Empreal,Cancat,Razavi,Razavi]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Sinoor_hotel':Sinoor_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Sinoor_hotel':Sinoor_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
-    return render(request,'sinoor.html',context)
+    return render(request,'hotels/sinoor.html',context)
 
 def main(request):
     return render(request,'main.html')
@@ -412,19 +414,20 @@ def Ghasr(request):
     Kids     = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال'))& Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='کیدز روم')).order_by('Price_Off')
     Standard        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال')) & Q(Day=first) & Q(Second_Day=second) & Q(Q(Room_Name__contains='استاندارد') | Q(Room_Name='اتاق دو تخته معمولی') | Q(Room_Name='اتاق دو تخته') | Q(Room_Name='دو تخته دابل'))).order_by('Price_Off')
     Apartment        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال')) & Q(Day=first) & Q(Second_Day=second) & Q(Q(Room_Name='آپارتمان دو خوابه') | Q(Room_Name='آپارتمان دو خوابه چهار نفره') | Q(Room_Name='آپارتمان دو خوابه چهارنفره') | Q(Room_Name=' آپارتمان دو خوابه چهار تخته '))).order_by('Price_Off')
-    # Prezident        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال')) & Q(Day=first) & Q(Second_Day=second) & Q(Q(Room_Name__contains='سوئیت پرزیدنت روم دو نفره') | Q(Room_Name='سوئیت پرزیدنت دونفره') | Q(Room_Name='سوییت پرزیدنت') | Q(Room_Name='سوئیت دو تخته پرزیدنت')| Q(Room_Name='پرزیدنت'))).order_by('Price_Off')
+    Prezident        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال')) & Q(Day=first) & Q(Second_Day=second) & Q(Q(Room_Name__contains='سوئیت پرزیدنت روم دو نفره') | Q(Room_Name='سوئیت پرزیدنت دونفره')| Q(Room_Name='سوئیت پرزیدنت دو نفره') | Q(Room_Name='سوییت پرزیدنت') | Q(Room_Name='سوئیت دو تخته پرزیدنت')| Q(Room_Name='پرزیدنت'))).order_by('Price_Off')
     Emprial        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال')) & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='آپارتمان') & Q(Q(Room_Name__contains='منو انتخابی') | Q(Room_Name__contains='امپریال'))).order_by('Price_Off')
     Special       = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال'))& Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name__contains='پرزیدنت') & Q(Room_Name__contains='ویژه'))).order_by('Price_Off')
     Royal       = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال'))& Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name__contains='پرزیدنت') & Q(Room_Name__contains='رویال'))).order_by('Price_Off')
     Luctury_Rolyal       = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال'))& Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name__contains='رویال') & Q(Room_Name__contains='لاکچری'))).order_by('Price_Off')
     Moon      = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='بین المللی قصر') | Q(site__hotel_name__contains='قصر اینترنشنال'))& Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name='ماه عسل')|Q(Room_Name__contains='هانی مون'))).order_by('Price_Off')
-    final = [Classic,Luctury,Prances,Hakhamanesh,Ghagar,Cancat,Kids,Standard,Apartment,Prezident,Emprial,Special,Royal,Luctury_Rolyal,Moon,Senior,Tooen,Three_Senior]
+    final = [Classic,Luctury,Prances,Hakhamanesh,Ghagar,Cancat,Kids,Standard,Apartment,Prezident,Emprial,Special,Royal,Luctury_Rolyal,Moon]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Ghasr_hotel':Ghasr_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Ghasr_hotel':Ghasr_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
-    return render(request,'ghasr.html',context)
+    return render(request,'hotels/ghasr.html',context)
 
 # def Ghasr_Talaee(request):
 #     form = TimeForm()
@@ -446,10 +449,10 @@ def Ghasr(request):
 #     final = [tooenss,double,tooens,house,tooen,sen]
 
 #     context = {
-#         'Ghasr_Talaee_hotel':Ghasr_Talaee_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+#         'Ghasr_Talaee_hotel':Ghasr_Talaee_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
 #         'tommorow_shamsi':second,'form':form
 #     }
-#     return render(request,'ghast_talaee.html',context)
+#     return render(request,'hotels/ghast_talaee.html',context)
 
 def Homa_2(request):
     form = TimeForm()
@@ -474,12 +477,13 @@ def Homa_2(request):
     double      = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 2') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١'))& Q(Day=first)& Q(Second_Day=second) & Q(Room_Name='لوکس') & Q(Room_Name__contains='هما')).order_by('Price_Off')
     Senior_Two        = Room_Detail.objects.filter(Q(Q(site__hotel_name__contains='هما 2') | Q(site__hotel_name__contains='هما ۱')| Q(site__hotel_name__contains='هما ١')) & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='یک') & Q(Q(Room_Name__contains='ویژه') | Q(Room_Name__contains='هما'))).order_by('Price_Off')
     final = [Eghamat,double,Four_Beds,Royal,Soite_Homa,Single,Senior_Two,Tooien,Special_Royal,Loux,Soite]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Homa_2_hotel':Homa_2_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Homa_2_hotel':Homa_2_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
-    return render(request,'homa_2.html',context)
+    return render(request,'hotels/homa_2.html',context)
 
 def Javad(request):
     form = TimeForm()
@@ -515,12 +519,13 @@ def Javad(request):
     One_Fool      = Room_Detail.objects.filter(Q(site__hotel_name__contains='جواد') & Q(Day=first) & Q(Second_Day=second) & Q(Day=first)& Q(Second_Day=second) & Q(Room_Name='فولبرد') & Q(Room_Name='یک')).order_by('Price_Off')
 
     final = [Houses,Moon,King,Soite,King_Fool,Soite_Fool,Franch,Marakesh,Italia,English,Moon_Fool,Italia_Fool,English_Fool,Franch_Fool,Three_King,Cancat_Fool,Four_Fool,Cancat,Three_King_Fool,Four_Beds,One_Fool]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Javad_hotel':Javad_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Javad_hotel':Javad_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
-    return render(request,'javad.html',context)
+    return render(request,'hotels/javad.html',context)
 
 def Pardisan(request):
     form = TimeForm()
@@ -545,12 +550,13 @@ def Pardisan(request):
 
 
     final = [Soite,Double_Royal,Tooien_Royal,Tooien_Loux,Double_Loux,Three_Loux,Single,Cancat,Single_Loux]
+    ralated_hotels = Information.objects.all()
 
     context = {
-        'Pardisan_hotel':Pardisan_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Pardisan_hotel':Pardisan_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
-    return render(request,'pardisan.html',context)
+    return render(request,'hotels/pardisan.html',context)
 
 def Madineh(request):
     form = TimeForm()
@@ -576,15 +582,13 @@ def Madineh(request):
     Medrit     = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا') & Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='مدریت')).order_by('Price_Off')
     Toien_Plas     = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا') & Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='ین پلاس فصل')).order_by('Price_Off')
     Royal     = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا') & Q(Day=first)& Q(Second_Day=second) & Q(Room_Name__contains='رویال')).order_by('Price_Off')
-    # One_Single       = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا') & Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name='یک نفر')|Q(Room_Name__contains='اتاق یک تخته'))).order_by('Price_Off')
-    # double      = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا') & Q(Day=first)& Q(Second_Day=second) & Q(Q(Room_Name='دو تخته دابل')|Q(Room_Name__contains='دو تخته دبل'))).order_by('Price_Off')
     Senior_Two        = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا')  & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='آپارتمان') & Q(Q(Room_Name__contains='فصل') | Q(Room_Name__contains='VIP'))).order_by('Price_Off')
     Apartment        = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا')  & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains='آپارتمان') & Q(Room_Name__contains='اکونومی')).order_by('Price_Off')
-    # Senior_Three        = Room_Detail.objects.filter(Q(site__hotel_name__contains='رضا')  & Q(Day=first) & Q(Second_Day=second) & Q(Room_Name__contains=' سه') & Q(Q(Room_Name__contains='سینیور') | Q(Room_Name__contains='سنیور'))).order_by('Price_Off')
     final = [Single,Loux,Eco,Soite,Double_Eco,Double,Toien,Three_Concat,Four_Cancat,Five_Cancat,Medrit,Toien_Plas,Royal,Senior_Two,Apartment]
 
+    ralated_hotels = Information.objects.all()
     context = {
-        'Madineh_hotel':Madineh_hotel,'all_hotel':all_hotel,'final':final,'today_shamsi':first,
+        'Madineh_hotel':Madineh_hotel,'all_hotel':all_hotel,'ralated_hotels':ralated_hotels,'final':final,'today_shamsi':first,
         'tommorow_shamsi':second,'form':form
     }
     if request.method == 'POST':
@@ -596,4 +600,4 @@ def Madineh(request):
         context.update({'custom':custom})
         context.update({'first':request.POST.get('first')})
         context.update({'second':request.POST.get('second')})
-    return render(request,'madineh.html',context)
+    return render(request,'hotels/madineh.html',context)

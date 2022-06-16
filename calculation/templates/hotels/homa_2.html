@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load jalali_tags %}
+{% load widget_tweaks %}
+{%block title%} اتاق ها {%endblock%}
+{%block about%} هتل ها {%endblock%}
+{% block content %}
+<div id="heros" class="main-banner" style="background-image:url({% static 'img/photo_1485637151.jpg' %} );">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-12">
+          <div class="top-text header-text">
+            <h2>انتخاب <span style="color: #50d8af;">تاریخ</span> موردنظر</h2>
+          </div>
+        </div>
+        <div class="col-lg-9 m-auto">
+          <form id="search-form" name="gs" method="post" role="search" >
+            {% csrf_token %}
+            <div class="row right">
+
+              <div class="col-lg-4 align-self-center">
+                <div class="row m-auto">
+                  <div class="col-lg-9 col-10">
+                    <div class='rtext' style="padding-right: 5px;">
+                      <span>تاریخ ورود:</span>
+                    </div>
+                    <div class='bottom-side reqular'>
+                  <fieldset style="color: #0000008a;">
+                    {{form.first|add_class:"date-first"|attr:"readonly=readonly"}}
+                  </fieldset>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-2 calender-icon" >
+                    <i class="bi bi-calendar2-week"></i>
+                  </div>
+                </div>
+            </div>
+            <div class="col-lg-4 align-self-center">
+                <div class="row m-auto">
+                  <div class="col-lg-9 col-10">
+                    <div class='rtext'>
+                      <span>تاریخ خروج:</span>
+                    </div>
+                    <div class='bottom-side'>
+                  <fieldset>
+                    {{form.second|add_class:"date-tommorow searchText"|attr:"readonly=readonly"}}
+                  </fieldset>
+                    </div>
+                  </div>
+                  <div class="col-lg-3 col-2 calender-icon" >
+                    <i class="bi bi-calendar2-week"></i>
+                  </div>
+                </div>
+            </div>
+              <div class="col-lg-4">                        
+                  <fieldset>
+                    <div>
+                      <button class="main-button">
+                        <span>جستجو</span>
+                        <i class="fa fa-search" style="color: #50d8af;"></i>
+                      </button>
+                    </div>
+                  </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  -->
+
+
+    <!-- ======= Venue Section ======= -->
+    <section id="venue">
+      <div class="container">
+        <div class="box-middle">
+          <h2>اطلاعات هتل</h2>
+        </div>
+      <div class="" data-aos="fade-up">
+
+        <div class="row justify-content-between g-0 right">
+          <!-- <div class="col-lg-6 venue-map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" style="border:0" allowfullscreen></iframe>
+          </div> -->
+          <div class="col-lg-4 venue-info" style="background: url('{% static 'img/venue-info-bg.jpg' %}') top center no-repeat;background-repeat: repeat;">
+            <div class="row justify-content-center">
+              <div class="col-11 col-lg-10 position-relative right">
+                <h3 >هتل {{Homa_2_hotel.hotel}}</h3>
+                <!-- <p >{{Homa_2_hotel.text}}</p> -->
+                <p class="half-content" id="half-{{Homa_2_hotel.id}}">{{ Homa_2_hotel.text|truncatechars:340 }}<a style="font-size: 12px;" data-id="{{Homa_2_hotel.id}}" href="javascript:void();" class="show-hide-btn">بیشتر</a></p>
+                <p class="full-content" id="full-{{Homa_2_hotel.id}}" style="display: none;">{{ Homa_2_hotel.text }}<a style="font-size: 12px;" data-id="{{Homa_2_hotel.id}}" href="javascript:void();" class="show-hide-btn">کمتر</a></p>
+              </div>
+            </div>
+          </div>
+      <div class="venue-gallery-container col-lg-8" data-aos="fade-up" data-aos-delay="100">
+        <div class="row g-0 ">
+
+      {% for img in all_hotel %}
+      <div class="col-lg-6 col-md-4">
+        <div class="venue-gallery">
+          <a href="{{img.image.url}}" class="glightbox" data-gall="venue-gallery">
+            <img src="{{img.image.url}}" alt="" class="img-fluid">
+          </a>
+        </div>
+
+      </div>
+      {% endfor %}
+      </div>
+
+    </div>
+          
+      <!-- </div> -->
+          
+        <!-- </div> -->
+      </div>
+      </div>
+
+    </div>
+    </section><!-- End Venue Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="services">
+    <div id="li-hotel" class="container" data-aos="fade-up">
+      <div class="box-middle">
+          <h2>لیست اتاق ها</h2>
+        </div>
+        {% for table in final %}
+                {% for info in table %}
+                {% if info.Night %}
+                  <div class="section-header">
+                  <h2 class="right">{{info}}</h2>
+                  </div>
+                  <div class="row right packet">
+                    <div class="col-lg-6" style="margin-top: 5px;">
+                        <div class="line-bt" >
+                            <div class="row m-auto border-down">
+                              <div class="col-lg-6 col-6"><p>تعداد شب</p></div>
+                              <div class="col-lg-6 col-6"><p>{{info.Night}}</p></div>
+                            
+                            </div>
+                            <!-- Sluuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuug -->
+                            <div class="row m-auto border-down">
+                              
+                              <div class="col-lg-6 col-6"><p> تعداد نفرات</p></div>
+                              <div class="col-lg-6 col-6"><p>{{info.Person_Number}} نفر</p></div>
+                            </div>
+        
+                          <div class="row m-auto border-down" style="text-align: center">
+                            <!-- <p>{{info.Price_Off|floatformat:"g"}}</p> -->
+                            
+                            <div class="col-lg-6 col-6"><p> نرخ مصوب</p></div>
+                              <div class="col-lg-6 col-6"><p>  {{info.Price_Origin}} تومان</p></div>
+                          </div>
+                            <div class="row m-auto border-down" >
+                              <div class="col-lg-6 col-6"><p>نوع تخت</p></div>
+                              <div class="col-lg-6 col-6"><p>{{info.Bed_Type}}</p></div>
+                            </div>
+                            <div class="row m-auto border-down">
+                              
+                              <div class="col-lg-6 col-6"><p>ظرفیت نفر اضافه</p></div>
+                              <div class="col-lg-6 col-6"><p>{{info.Extra_Person}}</p></div>
+                            </div>
+                        </div>
+                  </div>
+                
+
+                <div class="col-lg-6 p-lar">
+                  {% for room in table %}
+                <div class="row">
+                  <div class="col-lg-9 m-auto sty-info" data-aos="fade-up" data-aos-delay="100">
+              <a href="{{ room.Path }}">
+                <div class="row box text-center br-ri">
+                  <!-- <div class="col-lg-10" style="padding-left: 0;padding-right: 0;position: relative;"> -->
+                    <!-- <div class="right" style="border-bottom: solid 1px black;height: 35%;"><h4>{{info.site.hotel_name}}</h4></div> -->
+                    <!-- <div class="row" style="height: 65%;text-align: center;"> -->
+                      <div class="col-lg-6 col-6"><p>درسایت {{room.site.hotel.site_name}}</p></div>
+                    <div class="col-lg-6 col-6 miss-border">
+                      <p>{{room.Price_Off|floatformat:'g'}}   تومان  </p>
+                    </div>
+                    <!-- </div> -->
+                  <!-- </div> -->
+                    <!-- <div class="icon"><i class="bi bi-briefcase"></i></div> -->
+                    <!-- <h4 class="title"><a href="">{{room.Day}}</a></h4>
+                    <p class="description"></p> -->
+                </div>  
+              </a>
+                  </div>
+              </div>
+            
+                {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+                
+            
+            {% endfor %}
+                {% for room in table %}
+                
+                {% endfor %}
+        {% endfor %}
+        {% for room in custom %}
+    {% empty %}
+        
+        <div>
+          <h3 class="text-center mt-5">.اتاقی در تاریخ انتخابی شما وجود ندارد</h3>
+        </div>
+        
+    {% endfor %}
+    </div>
+  </section>
+
+      
+    <!-- Start Protfile -->
+    <section id="portfolio" class="portfolio">
+      <div class="container" data-aos="fade-up">
+        <div class="box-middle">
+          <h2>دیگر هتل ها</h2>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+
+          {% for Hotel in ralated_hotels %}
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+            <img src="{{Hotel.image.url}}" class="img-fluid" alt="">
+            <div class="portfolio-info right">
+              <h4>{{Hotel.hotel}}</h4>
+              <p>App</p>
+            </div>
+          </div>
+          {% endfor %}
+
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+{% if request.POST %}
+    {% if custom %}
+    <h1>from {{first}} to {{second}}</h1>
+    {% endif %}
+    {% for room in custom %}
+    cussotm
+        {{room.Room_Name}}
+        {{room.Price_Off}}
+        {{room.Day}}-
+        {{room.Second_Day}}
+        {{room.site.hotel_name}}
+        <br>
+    {% empty %}
+        
+        <h3>dose not exist</h3>
+        
+    {% endfor %}
+{% endif %}
+
+<br>
+<br>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jalaali-js/dist/jalaali.min.js"></script>
+
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.js"></script>
+<script src="https://unpkg.com/jalaali-js/dist/jalaali.min.js"></script>
+<script>
+        $(document).ready(function(){
+        $("#search-form").submit(function (e) {
+          e.preventDefault();
+          // var form = $(this).closest("form")
+          var serializedData = $(this).serialize();
+          $.ajax({
+            url: "{% url 'Darvish' %}",
+            type: 'POST',
+            data: serializedData,
+          });
+    
+        });
+      });
+      </script>
+<script>
+  var date_format = new Intl.DateTimeFormat('fa');
+
+  // console.log('{{tommorow_shamsi}}')
+  convert_date_today = date_format.format(Date.parse('{{today_shamsi}}'))
+  convert_date_tommorow = date_format.format(Date.parse('{{tommorow_shamsi}}'))
+  // console.log()
+  var today = new Date();
+  var date_now = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var date_today = document.querySelector('.date-first');
+  
+  var date_tommorow = document.querySelector('.date-tommorow');
+  date_today.value = convert_date_today;
+  date_tommorow.value = convert_date_tommorow;
+  // console.log(document.querySelector('#id_first').value);
+  var show = document.querySelector('#id_first')
+
+  show.addEventListener('click',e=>{
+    var c =  document.querySelectorAll('.ui-state-default')
+    
+    c.forEach(n => {
+      n.addEventListener('click',e =>{
+        var month = parseInt(n.parentElement.getAttribute('data-month'))+1
+        var year = parseInt(n.parentElement.getAttribute('data-year'))
+        const main = jalaali.jalaaliToDateObject(year, month, parseInt(n.textContent));
+        const main_next = jalaali.jalaaliToDateObject(year, month, parseInt(n.textContent)+1);
+        console.log(main)
+        console.log(date_format.format(Date.parse(main)))
+        // var fte = new Intl.DateTimeFormat('fa');
+        // console.log('{{tommorow_shamsi}}')
+        // convert_date = date_format.format(Date.parse(`${year}-${month}-${n.textContent}`))
+        var el = document.querySelector('#id_first')
+        el.value = date_format.format(Date.parse(main));
+        date_tommorow.value = date_format.format(Date.parse(main_next));
+      })
+    })
+  })
+
+
+  $(document).ready(function() {
+  $(".show-hide-btn").click(function() {
+    var id = $(this).data("id");
+    $("#half-" + id).toggle();//hide/show..
+    $("#full-" + id).toggle();
+  })
+})
+</script>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

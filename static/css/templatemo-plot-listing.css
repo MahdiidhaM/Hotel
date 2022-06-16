@@ -233,7 +233,7 @@ body {
   cursor: pointer;
   display: inline-block;
   background-color: #3f36abeb;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 400;
   color: #fff;
   text-transform: capitalize;
@@ -1085,6 +1085,7 @@ Recent Listing
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   width: 400px;
+  height: 215px;
 }
 
 .recent-listing .item .left-image img {
@@ -1106,7 +1107,7 @@ Recent Listing
 
 .recent-listing .item .right-content ul.rate li {
   display: inline-block;
-  padding-right: 4px;
+  /* padding-right: 4px; */
 }
 
 .recent-listing .item .right-content ul.rate li:last-child {
@@ -1131,7 +1132,7 @@ Recent Listing
   font-size: 17px;
   /* margin-top: 66px; */
   display: block;
-  margin-bottom: 15px;
+  margin: 15px 0 20px 0;
 }
 
 .recent-listing .item .right-content span.price .icon {
@@ -2027,7 +2028,7 @@ responsive
   }
   .recent-listing .item .right-content span.price,
   .listing-page .item .right-content span.price {
-    /* margin-top: 60px; */
+    margin-top: 35px;
   }
   .recent-listing .item .right-content ul.rate,
   .listing-page .item .right-content ul.rate {
@@ -2110,6 +2111,7 @@ responsive
     position: absolute;
     left: 0;
     padding-left: 10px;
+    font-size: 13px;
   }
   .recent-listing .item .listing-item{
     margin-bottom: 0;
@@ -2184,6 +2186,18 @@ responsive
   .section-heading h2{
     width: 100%;
     left: 0;
+  }
+  .owl-item .item{
+    text-align: center;
+  }
+  .recent-listing .item .left-image{
+    height: 140px;
+  }
+  .recent-listing .item .right-content h4{
+    font-size: 19px;
+  }
+  .recent-listing .item .left-image img{
+    border-radius: 7px;
   }
 }
 

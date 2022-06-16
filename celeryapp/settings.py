@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'celeryapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'hotel_project',
+        'USER':'hotel',
+        'PASSWORD': 'Mahdi1145',
+        'HOST':'localhost',
+        'PORT':''
     }
     # 'default': {
     #     'ENGINE': 'django.db.backends.postgresql',
@@ -126,9 +130,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_REDIRECT_URL = '/cal'
+LOGIN_REDIRECT_URL = '/'
 
-LOGOUT_REDIRECT_URL = '/cal'
+LOGOUT_REDIRECT_URL = '/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
@@ -151,26 +155,26 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    "Eghamat_task": {
-        "task": "calculation.tasks.Eghamat_task",
-        "schedule": crontab(minute="*/30"),
-    },
+    # "Eghamat_task": {
+    #     "task": "calculation.tasks.Eghamat_task",
+    #     "schedule": crontab(minute="*/60"),
+    # },
     # "Snap_task": {
     #     "task": "calculation.tasks.Snap_task",
-    #     "schedule": crontab(minute="*/30"),
+    #     "schedule": crontab(minute="*/60"),
     # },
-    # "Ali_task": {
-    #     "task": "calculation.tasks.Ali_task",
-    #     "schedule": crontab(minute="*/55"),
-    # },
-    # "Eli_task": {
-    #     "task": "calculation.tasks.Eli_task",
-    #     "schedule": crontab(minute="*/30"),
-    # },
-    # "Jainjas": {
-    #     "task": "calculation.tasks.Jainjas",
-    #     "schedule": crontab(minute="*/10"),
-    # },
+    "Ali_task": {
+        "task": "calculation.tasks.Ali_task",
+        "schedule": crontab(minute="*/60"),
+    },
+    "Eli_task": {
+        "task": "calculation.tasks.Eli_task",
+        "schedule": crontab(minute="*/60"),
+    },
+    "Jainjas": {
+        "task": "calculation.tasks.Jainjas",
+        "schedule": crontab(minute="*/60"),
+    },
 }
 
 JALALI_DATE_DEFAULTS = {

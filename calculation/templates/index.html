@@ -19,9 +19,9 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown">!خوش آمدید</h2>
-                <p class="animate__animated animate__fadeInUp">قیمت هتل هارا در شهر مشهد و در سایت های مختلف مقایسه کنید و اتاق موردنظر خود را انتخاب کنید.</p>
+                <p class="animate__animated animate__fadeInUp">قیمت هتل هارا در در سایت های مختلف شهر مشهد مقایسه کنید و اتاق موردنظر خود را انتخاب کنید</p>
                 <div>
-                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">بیشتر</a>
                 </div>
               </div>
             </div>
@@ -32,9 +32,9 @@
             <div class="carousel-container">
               <div class="carousel-content">
                 <h2 class="animate__animated animate__fadeInDown">در حال بروزرسانی</h2>
-                <p class="animate__animated animate__fadeInUp">در حال حاضر ۵ سایت دردسترس و قابل مقایسه هستند و به زودی تعداد بیشتری قرار میگیرد.</p>
+                <p class="animate__animated animate__fadeInUp">در حال حاضر ۵ سایت دردسترس و قابل مقایسه هستند و به زودی تعداد بیشتری قرار میگیرد</p>
                 <div>
-                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">بیشتر</a>
                 </div>
               </div>
             </div>
@@ -44,9 +44,9 @@
           <div class="carousel-item" style="background-image: url({% static 'img/Reza/harram-jjj.jpg' %});">
             <div class="carousel-container">
               <div class="carousel-content">
-                <p class="animate__animated animate__fadeInUp">در حال حاضر حدود ۱۰ هتل وبیش از ۳۰۰۰ اتاق در سایت وجود دارد وبزودی هتل های ببیشتری قرار میگیرد.</p>
+                <p class="animate__animated animate__fadeInUp">در حال حاضر حدود ۱۰ هتل وبیش از ۳۰۰۰ اتاق در سایت وجود دارد وبزودی هتل های ببیشتری قرار میگیرد</p>
                 <div>
-                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">Read More</a>
+                  <a href="#li-hotel" class="btn-get-started animate__animated animate__fadeInUp scrollto">بیشتر</a>
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@
         <div class="col-lg-12">
           
           <div class="section-heading">
-            <h2>لیست هتل ها</h2>
+            <h2 style="padding: 8px;">لیست هتل ها</h2>
           </div>
         </div>
         {% if Hotels_list != '' %}
@@ -133,12 +133,10 @@
                             </ul>
                             
                             <a class="right set-pos right-side" href="{% url Hotel.slug %}"><h4>{{forloop.counter}}. {{Hotel.hotel}}</h4></a>
-                            <ul class="info right" style="margin-top: 50px;">
-                              <li><img src="{% static 'images/listing-icon-02.png' %}" alt=""> 4 اتاق</li>
-                            </ul>
+
                             <span class="price right"><div class="icon"><img src="{% static 'images/listing-icon-01.png' %}" alt=""></div> {{ Hotel.address }}</span>
                             <div class="main-white-button">
-                              <a href="contact.html"><i class="fa fa-eye"></i> Contact Now</a>
+                              <a href="contact.html"><i class="fa fa-eye"></i>بازدید</a>
                             </div>
                           </div>
                         </div>
@@ -169,12 +167,10 @@
                             </ul>
                             
                             <a class="right set-pos right-side" href="{% url Hotel.slug %}"><h4>{{forloop.counter}}. {{Hotel.hotel}}</h4></a>
-                            <ul class="info right" style="margin-top: 50px;">
-                              <li><img src="{% static 'images/listing-icon-02.png' %}" alt=""> 4 اتاق</li>
-                            </ul>
+
                             <span class="price right"><div class="icon"><img src="{% static 'images/listing-icon-01.png' %}" alt=""></div> {{ Hotel.address }}</span>
                             <div class="main-white-button">
-                              <a href="contact.html"><i class="fa fa-eye"></i> Contact Now</a>
+                              <a href="contact.html"><i class="fa fa-eye"></i>بازدید</a>
                             </div>
                           </div>
                         </div>
@@ -235,7 +231,7 @@
 
         <div class="row no-gutters">
           <div class="section-heading text-center">
-            <h2 style="width: 100%;left:0">(درحال بروزرسانی)درباره سایت</h2>
+            <h2 style="width: 100%;left:0;padding: 8px;">(درحال بروزرسانی)درباره سایت</h2>
           </div>
           <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
             <div class="count-box">
@@ -275,7 +271,7 @@
 
   </main><!-- End #main -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      <script>
+      <!-- <script>
         $(document).ready(function(){
         $("#hotel-form").submit(function (e) {
           e.preventDefault();
@@ -289,6 +285,6 @@
     
         });
       });
-      </script>
+      </script> -->
 
 {% endblock %}

@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException
 import datetime 
+from selenium.webdriver.firefox.options import Options
 import re
 
 # @shared_task(name="data_checking")
@@ -26,6 +27,10 @@ from . import jalali
 # b = jalali.Gregorian(l.date()).persian_string()
 import time as ti
 
+@shared_task()
+def test_task():
+    print('teeeeeeeeeeeeeeeeeeeeeeeeeeeeeest')
+    Site.objects.create(site_name='teeeeest')
 @shared_task()
 def Snap_task():
     Hotels_List = ['هتل مدینه الرضا مشهد','هتل الماس 2 مشهد','هتل مجلل درویشی مشهد','هتل هما 1 مشهد','هتل قصر طلایی مشهد',
@@ -161,68 +166,84 @@ def Ali_task():
     return 'ali ok'
 
 Hotels_List = ['الرضا','الماس 2','درویشی','هما','هما 2 ','بین المللی قصر','قصر طلایی','سی نور','پردیسان','جواد']
-
+import os
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 @shared_task()
 def Eghamat_task():
-    driver = webdriver.Chrome('calculation/chromedriver')
+
+
+
+    
+    options = Options()
+    options.add_argument("--headless")
+    options.binary_location = r'/usr/bin/google-chrome-stable'
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options = options)
     driver.get('https://www.eghamat24.com/MashhadHotels.html')
+
+
+
+
+
     egh = 'Eghamat'
     Site.objects.filter(site_name=egh).delete()
     Eghamat,created = Site.objects.get_or_create(site_name=egh)
-        # new =  driver.find_element(By.XPATH,f'/html/body/main/div[3]/div/div/section/div/article[1]/a[{cli}]')
-    for ho in Hotels_List:
-        for cli in driver.find_elements(By.CLASS_NAME,'hotel-name-box')[:40]:
+    #     # new =  driver.find_element(By.XPATH,f'/html/body/main/div[3]/div/div/section/div/article[1]/a[{cli}]')
+    # for ho in Hotels_List:
+    #     for cli in driver.find_elements(By.CLASS_NAME,'hotel-name-box')[:40]:
         
-                if ho in cli.text:
-                    cli.click()
-                    cous = 0
-                    for cou in driver.find_elements(By.CLASS_NAME,'icon-shopping-cart'):
-                        cous+=1
-                    hotel_title = driver.find_element(By.CLASS_NAME,'hotel_name')
-                    hotel_eghamat,created = Hotel.objects.update_or_create(hotel=Eghamat,hotel_name=f'{hotel_title.text} Eghamat')
+    #             if ho in cli.text:
+    #                 cli.click()
+    #                 cous = 0
+    #                 for cou in driver.find_elements(By.CLASS_NAME,'icon-shopping-cart'):
+    #                     cous+=1
+    #                 hotel_title = driver.find_element(By.CLASS_NAME,'hotel_name')
+    #                 hotel_eghamat,created = Hotel.objects.update_or_create(hotel=Eghamat,hotel_name=f'{hotel_title.text} Eghamat')
                     
-                    for num in range(1,cous-4):
-                        try:
-                            x = driver.find_elements(By.CSS_SELECTOR,'.tr')[num]
-                            pesrons = driver.find_elements(By.CLASS_NAME,'room-capacity')[num-1]
-                        except:
-                            pass
+    #                 for num in range(1,cous-4):
+    #                     try:
+    #                         x = driver.find_elements(By.CSS_SELECTOR,'.tr')[num]
+    #                         pesrons = driver.find_elements(By.CLASS_NAME,'room-capacity')[num-1]
+    #                     except:
+    #                         pass
 
-                        num_of = 0
-                        for inj in pesrons.find_elements(By.CLASS_NAME,'icon-man'):
-                            num_of+=1
+    #                     num_of = 0
+    #                     for inj in pesrons.find_elements(By.CLASS_NAME,'icon-man'):
+    #                         num_of+=1
 
-                        prices = x.find_element(By.CLASS_NAME,'hotel_room_price')
-                        prices_list = ''.join(prices.text)
-                        prices_final = prices_list.split('\n')
-                        prices_final_next = re.sub(',','',prices_final[1])
+    #                     prices = x.find_element(By.CLASS_NAME,'hotel_room_price')
+    #                     prices_list = ''.join(prices.text)
+    #                     prices_final = prices_list.split('\n')
+    #                     prices_final_next = re.sub(',','',prices_final[1])
 
-                        if 'تومان' in prices_final[1]:
-                            prices_final_next = re.sub(',','',prices_final[1][:-6])
+    #                     if 'تومان' in prices_final[1]:
+    #                         prices_final_next = re.sub(',','',prices_final[1][:-6])
                             
-                        info = x.find_element(By.CLASS_NAME,'room-info')
-                        info_list = ''.join(info.text)
-                        info_final = info_list.split('\n')
-                        driver.find_elements(By.CLASS_NAME,'view_other_room_price')[num-1].click()
-                        if 'میهمان خارجی' in info_final[0]:
-                            continue
-                        for table in x.find_elements(By.CLASS_NAME,'hotel_calender_item'):
-                            # t = driver.find_element(By.XPATH,f'//*[@id="hotel_reservation"]/div/div/div[2]/div[1]/div[2]/div[{num}]/section[7]/div/div[{table}]')
-                                                    #   /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[1]
-                                                    # /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[2]
-                                                    # /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[2]
-                            tab = ''.join(table.text)
-                            tabs = tab.split('\n')
-                            times = jalali.Persian(f'1401{tabs[0][-6:]}').gregorian_string()
-                            times_end = datetime.datetime.strptime(times,'%Y-%m-%d')
-                            times_Second = times_end + datetime.timedelta(days=+1)
-                            try:
-                                convert_price_next = re.sub(',','',tabs[2][:-6])
-                                room_team,created = Room_Detail.objects.update_or_create(site=hotel_eghamat,Second_Day=times_Second.date(),Day=times_end,Room_Name=info_final[0],Path=driver.current_url,Night='برای 1 شب',Extra_Person=info_final[-2],Person_Number=num_of,Price_Origin=tabs[1],Bed_Type=info_final[-1][9:],Price_Off=int(convert_price_next))
-                            except:
-                                room_team,created = Room_Detail.objects.update_or_create(site=hotel_eghamat,Second_Day=times_Second.date(),Day=times_end,Room_Name=info_final[0],Path=driver.current_url,Night='برای 1 شب',Extra_Person=info_final[-2],Person_Number=num_of,Price_Origin=tabs[1],Bed_Type=info_final[-1][9:],Price_Off=tabs[1])
-                    driver.back()
-                    break
+    #                     info = x.find_element(By.CLASS_NAME,'room-info')
+    #                     info_list = ''.join(info.text)
+    #                     info_final = info_list.split('\n')
+    #                     driver.find_elements(By.CLASS_NAME,'view_other_room_price')[num-1].click()
+    #                     if 'میهمان خارجی' in info_final[0]:
+    #                         continue
+    #                     for table in x.find_elements(By.CLASS_NAME,'hotel_calender_item'):
+    #                         # t = driver.find_element(By.XPATH,f'//*[@id="hotel_reservation"]/div/div/div[2]/div[1]/div[2]/div[{num}]/section[7]/div/div[{table}]')
+    #                                                 #   /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[1]
+    #                                                 # /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[2]
+    #                                                 # /html/body/main/div[4]/div[3]/div/div/div[2]/div[1]/div[2]/div[1]/section[7]/div/div[2]
+    #                         tab = ''.join(table.text)
+    #                         tabs = tab.split('\n')
+    #                         times = jalali.Persian(f'1401{tabs[0][-6:]}').gregorian_string()
+    #                         times_end = datetime.datetime.strptime(times,'%Y-%m-%d')
+    #                         times_Second = times_end + datetime.timedelta(days=+1)
+    #                         try:
+    #                             convert_price_next = re.sub(',','',tabs[2][:-6])
+    #                             room_team,created = Room_Detail.objects.update_or_create(site=hotel_eghamat,Second_Day=times_Second.date(),Day=times_end,Room_Name=info_final[0],Path=driver.current_url,Night='برای 1 شب',Extra_Person=info_final[-2],Person_Number=num_of,Price_Origin=tabs[1],Bed_Type=info_final[-1][9:],Price_Off=int(convert_price_next))
+    #                         except:
+    #                             room_team,created = Room_Detail.objects.update_or_create(site=hotel_eghamat,Second_Day=times_Second.date(),Day=times_end,Room_Name=info_final[0],Path=driver.current_url,Night='برای 1 شب',Extra_Person=info_final[-2],Person_Number=num_of,Price_Origin=tabs[1],Bed_Type=info_final[-1][9:],Price_Off=tabs[1])
+    #                 driver.back()
+    #                 break
     return 'Eghamat ok'
 
 @shared_task

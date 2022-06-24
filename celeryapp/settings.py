@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+# from fcntl import F_SEAL_SEAL
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +26,9 @@ SECRET_KEY = '&t)v(kecs%u%87f)r$%3d*tmxywrzyeeg64ze&cqhv%i4hu$r1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['hotless.runflare.run']
+
+# CSRF_TRUSTED_ORIGINS=['hotels-hoteless.fandogh.cloud']
 
 
 # Application definition
@@ -78,26 +81,23 @@ TEMPLATES = [
 WSGI_APPLICATION = 'celeryapp.wsgi.application'
 
 
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR + 'db.sqlite3',
+    # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'hotel_project',
-        'USER':'hotel',
-        'PASSWORD': 'Mahdi1145',
-        'HOST':'localhost',
-        'PORT':''
+        'NAME': 'post-hotzhg_db',
+        'USER': 'postgres',
+        'PASSWORD': '1jadfovlmo86yhe',
+        'HOST': 'post-hotels-jot-service',
+        'PORT': '',
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'db_name',
-    #     'USER': 'username',
-    #     #'PASSWORD': 'mypassword',
-    #     'HOST': 'localhost',
-    #     'PORT': '5432',
-    # }
 }
 
 
@@ -137,43 +137,53 @@ LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static')
+MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery base setup
-CELERY_BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_BROKER_URL = 'redis://:tfmnjvy89y3ebx6@redis-hotels-ixt-service:6379/0'
+CELERY_RESULT_BACKEND = 'redis://:tfmnjvy89y3ebx6@redis-hotels-ixt-service:6379/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = TIME_ZONE
 
+
+
+
+
 from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    # "Eghamat_task": {
-    #     "task": "calculation.tasks.Eghamat_task",
-    #     "schedule": crontab(minute="*/60"),
-    # },
+    "Eghamat_task": {
+        "task": "calculation.tasks.Eghamat_task",
+        "schedule": crontab(minute="*/30"),
+    },
     # "Snap_task": {
     #     "task": "calculation.tasks.Snap_task",
     #     "schedule": crontab(minute="*/60"),
     # },
-    "Ali_task": {
-        "task": "calculation.tasks.Ali_task",
-        "schedule": crontab(minute="*/60"),
-    },
-    "Eli_task": {
-        "task": "calculation.tasks.Eli_task",
-        "schedule": crontab(minute="*/60"),
-    },
-    "Jainjas": {
-        "task": "calculation.tasks.Jainjas",
-        "schedule": crontab(minute="*/60"),
+    # "Ali_task": {
+    #     "task": "calculation.tasks.Ali_task",
+    #     "schedule": crontab(minute="*/60"),
+    # },
+    # "Eli_task": {
+    #     "task": "calculation.tasks.Eli_task",
+    #     "schedule": crontab(minute="*/60"),
+    # },
+    # "Jainjas": {
+    #     "task": "calculation.tasks.Jainjas",
+    #     "schedule": crontab(minute="*/60"),
+    # },
+    "test_task": {
+        "task": "calculation.tasks.test_task",
+        "schedule": crontab(minute="*/10"),
     },
 }
 

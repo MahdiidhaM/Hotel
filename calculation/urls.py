@@ -13,4 +13,5 @@ urlpatterns = [
     path('Ghasr_Talaee/',Ghasr_Talaee,name='ghasrtalaee'),
     path('Homa_2/',Homa_2,name='Homa_2'),
     path('Pardisan/',Pardisan,name='Pardisan'),
+    path('test/',test,name='test'),
 ]

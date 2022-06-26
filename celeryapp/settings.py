@@ -26,7 +26,7 @@ SECRET_KEY = '&t)v(kecs%u%87f)r$%3d*tmxywrzyeeg64ze&cqhv%i4hu$r1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hotless.runflare.run']
+ALLOWED_HOSTS = []
 
 # CSRF_TRUSTED_ORIGINS=['hotels-hoteless.fandogh.cloud']
 
@@ -81,6 +81,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'celeryapp.wsgi.application'
 
 
+# celery -A celeryapp worker --loglevel=INFO --without-gossip --without-mingle --without-heartbeat -Ofair --pool=solo
+
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -92,11 +94,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'post-hotzhg_db',
+        'NAME': 'postgre-fvy_db',
         'USER': 'postgres',
-        'PASSWORD': '1jadfovlmo86yhe',
-        'HOST': 'post-hotels-jot-service',
-        'PORT': '',
+        'PASSWORD': '84xbk95owf6vzh8',
+        'HOST': '188.40.16.3',
+        'PORT': '32405',
     }
 }
 
@@ -140,14 +142,15 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 
 STATIC_URL = '/static/'
-# STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+STATICFILES_DIRS = [os.path.join(BASE_DIR,'static/')]
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Celery base setup
-CELERY_BROKER_URL = 'redis://:tfmnjvy89y3ebx6@redis-hotels-ixt-service:6379/0'
-CELERY_RESULT_BACKEND = 'redis://:tfmnjvy89y3ebx6@redis-hotels-ixt-service:6379/0'
+# redis://:9xvasbzbpeqk56d@redis-hotels-efj-service:6379/0
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -161,29 +164,25 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    "Eghamat_task": {
-        "task": "calculation.tasks.Eghamat_task",
-        "schedule": crontab(minute="*/30"),
-    },
+    # "Eghamat_task": {
+    #     "task": "calculation.tasks.Eghamat_task",
+    #     "schedule": crontab(minute="*/51"),
+    # },
     # "Snap_task": {
     #     "task": "calculation.tasks.Snap_task",
-    #     "schedule": crontab(minute="*/60"),
+    #     "schedule": crontab(minute="*/51"),
     # },
-    # "Ali_task": {
-    #     "task": "calculation.tasks.Ali_task",
-    #     "schedule": crontab(minute="*/60"),
-    # },
-    # "Eli_task": {
-    #     "task": "calculation.tasks.Eli_task",
-    #     "schedule": crontab(minute="*/60"),
-    # },
-    # "Jainjas": {
-    #     "task": "calculation.tasks.Jainjas",
-    #     "schedule": crontab(minute="*/60"),
-    # },
-    "test_task": {
-        "task": "calculation.tasks.test_task",
-        "schedule": crontab(minute="*/10"),
+    "Ali_task": {
+        "task": "calculation.tasks.Ali_task",
+        "schedule": crontab(minute="*/42"),
+    },
+    "Eli_task": {
+        "task": "calculation.tasks.Eli_task",
+        "schedule": crontab(minute="*/42"),
+    },
+    "Jainjas": {
+        "task": "calculation.tasks.Jainjas",
+        "schedule": crontab(minute="*/42"),
     },
 }
 

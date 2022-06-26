@@ -21,13 +21,11 @@ from django.conf.urls.static import static
 from django.contrib.auth import views
 
 urlpatterns = [
-    path("",include('calculation.urls')),
+    path("hotelles/",include('calculation.urls')),
     path('admin/', admin.site.urls),
     path("login/", views.LoginView.as_view(), name="login"),
     path("logout/", views.LogoutView.as_view(), name="logout"),
-    path('Ali_task/',Eghamat_task),
     path('SignUp/',sign_up,name='register'),
-    path('aj/',aj,name='aj'),
 ]
 
 urlpatterns += static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

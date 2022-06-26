@@ -5,9 +5,9 @@
 
 ## About project
 
- This project is about the leatest hotels price that exsit on the other sites.
- I used selenium for Scraping site and useی celery in djagno for periodic tasks.
-The site is being updated
+ This project is about the leatest hotels price that exsit on the other sites.</br>
+ I used selenium for Scraping site and used celery in djagno for periodic tasks.</br>
+ The site is being updated
 
 ### Visit site
 [http://hotelles.runflare.run/](http://hotelles.runflare.run/)

@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&t)v(kecs%u%87f)r$%3d*tmxywrzyeeg64ze&cqhv%i4hu$r1'
+SECRET_KEY = 'SECRET_KEY'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -94,11 +94,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgre-fvy_db',
-        'USER': 'postgres',
-        'PASSWORD': '84xbk95owf6vzh8',
-        'HOST': '188.40.16.3',
-        'PORT': '32405',
+        'NAME': 'NAME-db',
+        'USER': 'USERNAME',
+        'PASSWORD': 'PASSWORD-DB',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -174,15 +174,15 @@ CELERY_BEAT_SCHEDULE = {
     # },
     "Ali_task": {
         "task": "calculation.tasks.Ali_task",
-        "schedule": crontab(minute="*/42"),
+        "schedule": crontab(hour='*/24',minute="*/0"),
     },
     "Eli_task": {
         "task": "calculation.tasks.Eli_task",
-        "schedule": crontab(minute="*/42"),
+        "schedule": crontab(hour='*/24',minute="*/0"),
     },
     "Jainjas": {
         "task": "calculation.tasks.Jainjas",
-        "schedule": crontab(minute="*/42"),
+        "schedule": crontab(hour='*/24',minute="*/0"),
     },
 }
 

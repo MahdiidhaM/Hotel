@@ -164,14 +164,14 @@ from celery.schedules import crontab
 # import core.task
 
 CELERY_BEAT_SCHEDULE = {
-    # "Eghamat_task": {
-    #     "task": "calculation.tasks.Eghamat_task",
-    #     "schedule": crontab(minute="*/51"),
-    # },
-    # "Snap_task": {
-    #     "task": "calculation.tasks.Snap_task",
-    #     "schedule": crontab(minute="*/51"),
-    # },
+    "Eghamat_task": {
+        "task": "calculation.tasks.Eghamat_task",
+        "schedule": crontab(hour='*/24',minute="*/0"),
+    },
+    "Snap_task": {
+        "task": "calculation.tasks.Snap_task",
+        "schedule": crontab(hour='*/24',minute="*/0"),
+    },
     "Ali_task": {
         "task": "calculation.tasks.Ali_task",
         "schedule": crontab(hour='*/24',minute="*/0"),
